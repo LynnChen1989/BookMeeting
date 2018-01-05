@@ -7,7 +7,7 @@ class MeetingRoom(models.Model):
     name = models.CharField(verbose_name='会议室名称', max_length=100)
     capacity = models.CharField(verbose_name='会议室容量', max_length=40)
     screen = models.BooleanField(verbose_name='是否有电视/投影', default=True)
-    comment = models.CharField(verbose_name='其他说明', max_length=150)
+    comment = models.CharField(verbose_name='其他说明', max_length=150, blank=True, null=True)
 
     class Meta:
         verbose_name = '会议室信息'
