@@ -15,11 +15,7 @@
 {% block page_content %}
     <div class="row">
         <div class="col-sm-9">
-            <h4 class="blue">
-                <span style="color: #1B6AAA">
-                <% currentChooseMeetingRoom %>
-                </span>
-                预定视图</h4>
+            <h3 class="purple" align="center"><i class="fa fa-empire"></i> <% currentChooseMeetingRoom %></h3>
             <div class="space"></div>
             <div id="calendar"></div>
         </div>
@@ -27,41 +23,22 @@
         <div class="col-sm-3">
             <div class="widget-box transparent">
                 <div class="widget-header">
-                    <h4>您的预定</h4>
+                    <h4> <% currentChooseMeetingRoom %> 会议室介绍</h4>
                 </div>
-
                 <div class="widget-body">
                     <div class="widget-main no-padding">
                         <div id="external-events">
-                            <div class="external-event label-success"
-                                 data-class="label-success">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室1
+                            <div class="external-event label-success label-white" data-class="label-success">
+                                <i class="ace-icon fa fa-user"></i>
+                                可容纳人数： 8-10
                             </div>
-
-                            <div class="external-event label-danger" data-class="label-danger">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室2
-                            </div>
-
-                            <div class="external-event label-purple" data-class="label-purple">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室3
-                            </div>
-
-                            <div class="external-event label-yellow" data-class="label-yellow">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室4
-                            </div>
-
-                            <div class="external-event label-pink" data-class="label-pink">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室5
-                            </div>
-
-                            <div class="external-event label-info" data-class="label-info">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室6
+                        </div>
+                    </div>
+                    <div class="widget-main no-padding">
+                        <div id="external-events">
+                            <div class="external-event label-success label-white" data-class="label-success">
+                                <i class="ace-icon fa fa-television"></i>
+                                是否有投影/电视： 是
                             </div>
                         </div>
                     </div>
@@ -70,59 +47,79 @@
 
             <div class="widget-box transparent">
                 <div class="widget-header">
-                    <h4>今日会议室预定情况</h4>
+                    <h4><% currentChooseMeetingRoom %> 今日预定情况</h4>
                 </div>
 
                 <div class="widget-body">
                     <div class="widget-main no-padding">
                         <div id="external-events">
-                            <div class="external-event label-success"
+                            <div class="external-event label-success label-white"
                                  data-class="label-success">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室1
+                                <i class="ace-icon fa fa-clock-o"></i>
+                                上午 已预订：0小时30分； 可预订：1小时30分
                             </div>
 
-                            <div class="external-event label-danger" data-class="label-danger">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室2
+                            <div class="external-event label-info label-white" data-class="label-info">
+                                <i class="ace-icon fa fa-clock-o"></i>
+                                下午 已预订：0小时30分； 可预订：1小时30分
                             </div>
 
-                            <div class="external-event label-purple" data-class="label-purple">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室3
-                            </div>
 
-                            <div class="external-event label-yellow" data-class="label-yellow">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室4
-                            </div>
-
-                            <div class="external-event label-pink" data-class="label-pink">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室5
-                            </div>
-
-                            <div class="external-event label-info" data-class="label-info">
-                                <i class="ace-icon fa fa-arrows"></i>
-                                会议室6
+                            <div class="external-event label-warning label-white" data-class="label-info">
+                                <i class="ace-icon fa fa-clock-o"></i>
+                                晚上 已预订：0小时30分； 可预订：1小时30分
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 {% endblock %}
 
 {% block external_script %}
     <script type="text/javascript">
+        // 根据时间戳生成 "2017/09/11 12:00:00 星期一" 这种格式
+        function getzf(num) {
+            if (parseInt(num) < 10) {
+                num = '0' + num;
+            }
+            return num;
+        }
+        function getMyDate(str) {
+            var oDate = new Date(str),
+                oYear = oDate.getFullYear(),
+                oMonth = oDate.getMonth() + 1,
+                oDay = oDate.getDate(),
+                oHour = oDate.getHours(),
+                oMin = oDate.getMinutes(),
+                oSen = oDate.getSeconds();
+            var oWeek = "日一二三四五六".charAt(oDate.getDay());
+            return oYear + '/' + getzf(oMonth) + '/' + getzf(oDay) + ' ' + getzf(oHour) + ':' + getzf(oMin) + ':' + getzf(oSen) + '星期' + oWeek;
+        }
+
+        function getTimeDelta(start, end) {
+            var date3 = end - start;
+            var days = Math.floor(date3 / (24 * 3600 * 1000));
+            var leave1 = date3 % (24 * 3600 * 1000);
+            var hours = Math.floor(leave1 / (3600 * 1000));
+            var leave2 = leave1 % (3600 * 1000);
+            var minutes = Math.floor(leave2 / (60 * 1000));
+            return days + "天 " + hours + "小时 " + minutes + " 分钟"
+        }
+
+
+        // 日历渲染
         var renderFullCalendar = function (id, name) {
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
+            var meetingRoomName = name;
             var calendar = $('#calendar').fullCalendar({
                 lang: 'zh-CN',
+                timezone: 'local',
                 minTime: '06:00:00',
                 maxTime: '23:59:59',
                 displayEventTime: true,
@@ -147,7 +144,7 @@
                 },
                 events: [
                     {
-                        title: name,
+                        title: meetingRoomName,
                         start: new Date(y, m, d, 16, 0),
                         end: new Date(y, m, d, 17, 0),
                         allDay: false,
@@ -177,23 +174,27 @@
                 selectable: true,
                 selectHelper: true,
                 select: function (start, end, allDay) {
-                    window.location.href = "{% url 'book' %}?meetingroom=x";
-{#                    bootbox.prompt("会议室预定", function (title) {#}
-{#                        if (title !== null) {#}
-{#                            calendar.fullCalendar('renderEvent',#}
-{#                                {#}
-{#                                    title: title,#}
-{#                                    start: start,#}
-{#                                    end: end,#}
-{#                                    allDay: allDay,#}
-{#                                    className: 'label-info'#}
-{#                                },#}
-{#                                true // make the event "stick"#}
-{#                            );#}
-{#                        }#}
-{#                    });#}
-{##}
-{#                    calendar.fullCalendar('unselect');#}
+                    var startTime = getMyDate(start);
+                    var endTime = getMyDate(end);
+                    var costTime = getTimeDelta(start, end);
+                    window.location.href = "{% url 'book' %}?start=" + startTime + "&end=" + endTime
+                        + "&during=" + costTime + "&meetingroom=" + meetingRoomName;
+                    {#                    bootbox.prompt("会议室预定", function (title) {#}
+                    {#                        if (title !== null) {#}
+                    {#                            calendar.fullCalendar('renderEvent',#}
+                    {#                                {#}
+                    {#                                    title: title,#}
+                    {#                                    start: start,#}
+                    {#                                    end: end,#}
+                    {#                                    allDay: allDay,#}
+                    {#                                    className: 'label-info'#}
+                    {#                                },#}
+                    {#                                true // make the event "stick"#}
+                    {#                            );#}
+                    {#                        }#}
+                    {#                    });#}
+                    {##}
+                    {#                    calendar.fullCalendar('unselect');#}
                 },
                 eventClick: function (calEvent, jsEvent, view) {
                     //点击事件后的操作

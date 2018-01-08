@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <div>
-        <table class="table table-bordered">
+    <div xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+        <table class="table table-bordered" id="book-base-info">
             <tr>
                 <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">会议室</span></td>
-                <td><span class="blue bigger-105">腾龙阁</span></td>
+                <td><span class="blue bigger-105"><% meetingRoomName %></span></td>
                 <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">开始时间</span></td>
-                <td><span class="blue bigger-105">14:30:00</span></td>
+                <td><span class="blue bigger-105"><% startTime %></span></td>
                 <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">结束时间</span></td>
-                <td><span class="blue bigger-105">15:30:00</span></td>
+                <td><span class="blue bigger-105"><% endTime %></span></td>
+                <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">总耗时</span></td>
+                <td><span class="blue bigger-105"><% costTime %></span></td>
             </tr>
         </table>
     </div>
@@ -17,7 +19,7 @@
 
 {% block page_content %}
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12" id="book-handle">
             <!-- PAGE CONTENT BEGINS -->
             <form class="form-horizontal" role="form">
                 <div class="form-group">
@@ -37,21 +39,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right"> 参会人员
+                    <label class="control-label col-sm-3 no-padding-right"> 参会人员
                         <span style="color: orangered">*</span>
                     </label>
+
                     <div class="col-xs-12 col-sm-9">
                         <select multiple="" id="state" name="state" class="select2"
-                                data-placeholder="Click to Choose...">
-                            <option value="AL">chenlin002[陈林]</option>
-                            <option value="AK">Alaska</option>
-                            <option value="AZ">Arizona</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="CA">California</option>
-                            <option value="CO">Colorado</option>
-                            <option value="CT">Connecticut</option>
-                            <option value="DE">Delaware</option>
-                            <option value="FL">Florida</option>
+                                data-placeholder="点击选择">
+                            <option v-for="user in userList" v-bind:value="user.username">
+                                <% user.username %>[<% user.first_name %>]
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -90,6 +87,14 @@
 
 {% block external_script %}
     <script>
+
+        // 多选框处理
+        jQuery(function ($) {
+            $('.select2').css('width', '400px').select2({
+                allowClear: true
+            })
+        });
+
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
                 sURLVariables = sPageURL.split('&'),
@@ -103,7 +108,38 @@
             }
         };
 
-        var meetingRoomName = getUrlParameter('meetingroom');
-        console.log(meetingRoomName, 'xxxx')
+        // 头部信息
+        var app_header = new Vue({
+            el: "#book-base-info",
+            delimiters: ["<%", "%>"],
+            data: {
+                startTime: getUrlParameter('start'),
+                endTime: getUrlParameter('end'),
+                costTime: getUrlParameter('during'),
+                meetingRoomName: getUrlParameter('meetingroom')
+            }
+        });
+
+        // 预定正文信息
+        var vueData = {
+            userApiUrl: "{% url 'bookmeeting:users' %}",
+            userList: []
+        };
+
+        var app_content = new Vue({
+            el: "#book-handle",
+            delimiters: ["<%", "%>"],
+            data: vueData,
+            mounted: function () {
+                this.getUserList()
+            },
+            methods: {
+                getUserList: function () {
+                    this.$http.get(this.userApiUrl).then(function (response) {
+                        this.userList = response.data;
+                    })
+                }
+            }
+        })
     </script>
 {% endblock %}
