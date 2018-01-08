@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
-from bookmeeting.views import BookMeetingView
+from django.urls import path, include
+from bookmeeting.views import BookMeetingView, BookView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,12 @@ urlpatterns = [
 
 urlpatterns += [
     path('bookmeeting', BookMeetingView.as_view()),
-    url(r'^$', BookMeetingView.as_view(), name='bookmeeting')
+    url(r'^$', BookMeetingView.as_view(), name='bookmeeting'),
+    url(r'^book/', BookView.as_view(), name='book')
+]
+
+# for rest_framework
+urlpatterns += [
+    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/bookmeeting/', include('bookmeeting.api.urls', namespace='bookmeeting'))
 ]
