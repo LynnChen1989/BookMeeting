@@ -31,5 +31,5 @@ urlpatterns += [
 # for rest_framework
 urlpatterns += [
     url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/bookmeeting/', include('bookmeeting.api.urls', namespace='bookmeeting'))
+    url(r'^api/bookmeeting/', include('bookmeeting.urls', namespace='bookmeeting'))
 ]

@@ -1,19 +1,25 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <p id="meeting-list">
-        {% for m in meeting_room %}
-            <button v-on:click="renderBookMeeting({{ m.id }}, {{ m.name }} $event)" type="button"
-                    class="btn btn-white btn-{{ m.color }}">
-                {{ m.name }}
+    <ul style="margin-left: 0">
+        <li v-for="m in meetingRoomList"
+            style="padding: 0; margin: 5px; list-style-type: none; display: inline-block;">
+            <button @click="renderBookMeeting(m.id, m.name, $event)"
+                    type="button"
+                    class="btn btn-white btn-primary">
+                <% m.name %>
             </button>
-        {% endfor %}
-    </p>
+        </li>
+    </ul>
 {% endblock %}
 {% block page_content %}
     <div class="row">
         <div class="col-sm-9">
-            <h4 class="blue">预定情况</h4>
+            <h4 class="blue">
+                <span style="color: #1B6AAA">
+                <% currentChooseMeetingRoom %>
+                </span>
+                预定视图</h4>
             <div class="space"></div>
             <div id="calendar"></div>
         </div>
@@ -110,7 +116,7 @@
 
 {% block external_script %}
     <script type="text/javascript">
-        var renderFullCalendar = function (id) {
+        var renderFullCalendar = function (id, name) {
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
@@ -126,7 +132,7 @@
                 defaultView: 'agendaWeek',
                 allDaySlot: false,
                 buttonText: {
-                    month: '月视图' + id,
+                    month: '月视图',
                     agendaWeek: '周视图',
                     agendaDay: '天视图'
                 },
@@ -141,7 +147,7 @@
                 },
                 events: [
                     {
-                        title: '运维周例会',
+                        title: name,
                         start: new Date(y, m, d, 16, 0),
                         end: new Date(y, m, d, 17, 0),
                         allDay: false,
@@ -171,22 +177,23 @@
                 selectable: true,
                 selectHelper: true,
                 select: function (start, end, allDay) {
-                    bootbox.prompt("会议室预定", function (title) {
-                        if (title !== null) {
-                            calendar.fullCalendar('renderEvent',
-                                {
-                                    title: title,
-                                    start: start,
-                                    end: end,
-                                    allDay: allDay,
-                                    className: 'label-info'
-                                },
-                                true // make the event "stick"
-                            );
-                        }
-                    });
-
-                    calendar.fullCalendar('unselect');
+                    window.location.href = "{% url 'book' %}?meetingroom=x";
+{#                    bootbox.prompt("会议室预定", function (title) {#}
+{#                        if (title !== null) {#}
+{#                            calendar.fullCalendar('renderEvent',#}
+{#                                {#}
+{#                                    title: title,#}
+{#                                    start: start,#}
+{#                                    end: end,#}
+{#                                    allDay: allDay,#}
+{#                                    className: 'label-info'#}
+{#                                },#}
+{#                                true // make the event "stick"#}
+{#                            );#}
+{#                        }#}
+{#                    });#}
+{##}
+{#                    calendar.fullCalendar('unselect');#}
                 },
                 eventClick: function (calEvent, jsEvent, view) {
                     //点击事件后的操作
@@ -233,27 +240,35 @@
 
         var token = "{{ csrf_token }}";
         var data = {
-            meetingRoomInfoUrl: "{% url 'bookmeeting:api.meetingroot-info' %}",
-            meetingRoomList: []
+            meetingRoomInfoUrl: "{% url 'bookmeeting:meetingroot-info' %}",
+            meetingRoomList: '',
+            currentChooseMeetingRoom: '',
+            defaultShowMeeting: ''
         };
         // vue
         var app = new Vue({
-            el: "#page-content",
+            el: "#book-page-content",
             delimiters: ["<%", "%>"],
             data: data,
             mounted: function () {
                 this.getMeetingRoom();
+                this.renderBookMeeting(this.defaultShowMeeting.id, this.defaultShowMeeting.name)
             },
             methods: {
                 getMeetingRoom: function () {
                     this.$http.get(this.meetingRoomInfoUrl).then(function (response) {
-                        console.log(response.data)
+                        var result = response.data;
+                        // 把列表中的第一个作为页面的默认渲染
+                        this.defaultShowMeeting = result[0];
+                        this.currentChooseMeetingRoom = result[0]['name'];
+                        this.meetingRoomList = result
                     })
+                },
+                renderBookMeeting: function (id, name, e) {
+                    $("#calendar").replaceWith("<div id='calendar'></div>");
+                    this.currentChooseMeetingRoom = name;
+                    renderFullCalendar(id, name)
                 }
-                {#                renderBookMeeting: function (id, e) {#}
-                {#                    $("#calendar").replaceWith("<div id='calendar'></div>");#}
-                {#                    renderFullCalendar(id)#}
-                {#                }#}
             }
 
         });
