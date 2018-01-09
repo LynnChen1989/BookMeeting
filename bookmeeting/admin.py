@@ -14,6 +14,7 @@ class MeetingRoomBookInline(admin.TabularInline):
 @admin.register(MeetingRoom)
 class MeetingRoomAdmin(admin.ModelAdmin):
     list_per_page = 20
+    list_display = ('name', 'screen', 'capacity', 'picture', 'comment')
     list_filter = ('name', 'screen')
     inlines = [MeetingRoomBookInline, ]
 

@@ -4,7 +4,7 @@
     <ul style="margin-left: 0">
         <li v-for="m in meetingRoomList"
             style="padding: 0; margin: 5px; list-style-type: none; display: inline-block;">
-            <button @click="renderBookMeeting(m.id, m.name, $event)"
+            <button @click="renderBookMeeting(m, $event)"
                     type="button"
                     class="btn btn-white btn-primary">
                 <% m.name %>
@@ -15,7 +15,7 @@
 {% block page_content %}
     <div class="row">
         <div class="col-sm-9">
-            <h3 class="purple" align="center"><i class="fa fa-empire"></i> <% currentChooseMeetingRoom %></h3>
+            <h3 class="purple" align="center"><i class="fa fa-empire"></i> <% currentChooseMeetingRoom.name %></h3>
             <div class="space"></div>
             <div id="calendar"></div>
         </div>
@@ -23,14 +23,14 @@
         <div class="col-sm-3">
             <div class="widget-box transparent">
                 <div class="widget-header">
-                    <h4> <% currentChooseMeetingRoom %> 会议室介绍</h4>
+                    <h4> <% currentChooseMeetingRoom.name %> 会议室介绍</h4>
                 </div>
                 <div class="widget-body">
                     <div class="widget-main no-padding">
                         <div id="external-events">
                             <div class="external-event label-success label-white" data-class="label-success">
                                 <i class="ace-icon fa fa-user"></i>
-                                可容纳人数： 8-10
+                                可容纳人数： <% currentChooseMeetingRoom.capacity %>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,10 @@
                         <div id="external-events">
                             <div class="external-event label-success label-white" data-class="label-success">
                                 <i class="ace-icon fa fa-television"></i>
-                                是否有投影/电视： 是
+                                是否有投影/电视：
+                                <span v-if="currentChooseMeetingRoom.screen" class="green">是</span>
+                                <span v-else class="red">否</span>
+
                             </div>
                         </div>
                     </div>
@@ -47,7 +50,7 @@
 
             <div class="widget-box transparent">
                 <div class="widget-header">
-                    <h4><% currentChooseMeetingRoom %> 今日预定情况</h4>
+                    <h4><% currentChooseMeetingRoom.name %> 今日预定情况</h4>
                 </div>
 
                 <div class="widget-body">
@@ -74,6 +77,18 @@
                 </div>
             </div>
 
+            <div class="widget-box transparent">
+                <div class="widget-header">
+                    <h4><% currentChooseMeetingRoom.name %> 透视</h4>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <div class="space-4"></div>
+                        <img width="200px" height="200px" style="border-radius:20px;" :src="currentChooseMeetingRoom.picture"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -243,32 +258,40 @@
         var data = {
             meetingRoomInfoUrl: "{% url 'bookmeeting:meetingroot-info' %}",
             meetingRoomList: '',
-            currentChooseMeetingRoom: '',
-            defaultShowMeeting: ''
+            currentChooseMeetingRoom: ''
         };
         // vue
         var app = new Vue({
             el: "#book-page-content",
             delimiters: ["<%", "%>"],
             data: data,
+            watch: {
+                // 这里为了避免异步加载数据导致的页面数据缺失，使用watch来监视currentChooseMeetingRoom，如果数据完毕就重新渲染页面
+                currentChooseMeetingRoom: function () {
+                    this.renderBookMeeting(this.currentChooseMeetingRoom)
+                }
+            },
             mounted: function () {
                 this.getMeetingRoom();
-                this.renderBookMeeting(this.defaultShowMeeting.id, this.defaultShowMeeting.name)
+                this.initRender();
             },
             methods: {
                 getMeetingRoom: function () {
                     this.$http.get(this.meetingRoomInfoUrl).then(function (response) {
                         var result = response.data;
                         // 把列表中的第一个作为页面的默认渲染
-                        this.defaultShowMeeting = result[0];
-                        this.currentChooseMeetingRoom = result[0]['name'];
+                        this.currentChooseMeetingRoom = result[0];
                         this.meetingRoomList = result
                     })
                 },
-                renderBookMeeting: function (id, name, e) {
+                //点击后重新渲染页面
+                renderBookMeeting: function (m, e) {
                     $("#calendar").replaceWith("<div id='calendar'></div>");
-                    this.currentChooseMeetingRoom = name;
-                    renderFullCalendar(id, name)
+                    this.currentChooseMeetingRoom = m;
+                    renderFullCalendar(m.id, m.name)
+                },
+                initRender: function () {
+                    renderFullCalendar(this.currentChooseMeetingRoom.id, this.currentChooseMeetingRoom.name)
                 }
             }
 

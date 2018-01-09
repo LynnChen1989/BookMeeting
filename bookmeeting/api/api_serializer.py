@@ -7,7 +7,7 @@ from rest_framework import serializers
 class MeetingRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = MeetingRoom
-        fields = ('name', 'capacity', 'screen', 'comment')
+        fields = ('name', 'capacity', 'screen', 'comment', 'picture')
 
 
 class UserSerializer(serializers.ModelSerializer):
