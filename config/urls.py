@@ -19,15 +19,17 @@ from django.contrib import admin
 from django.urls import path, include
 from bookmeeting.views import BookMeetingView, BookView
 from django.conf import settings
+from rest_framework_swagger.views import get_swagger_view
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  url(r'^api-docs/$', get_swagger_view(title='会议室预定系统API'))
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     path('bookmeeting', BookMeetingView.as_view()),
     url(r'^$', BookMeetingView.as_view(), name='bookmeeting'),
-    url(r'^book/', BookView.as_view(), name='book')
+    url(r'^book/', BookView.as_view(), name='book'),
 ]
 
 # for rest_framework

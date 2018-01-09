@@ -26,9 +26,10 @@ class BookingInfo(models.Model):
     meeting_room = models.ForeignKey(MeetingRoom, verbose_name='会议室', on_delete=models.CASCADE)
     start_time = models.DateTimeField(verbose_name='会议开始时间')
     end_time = models.DateTimeField(verbose_name='会议开始时间')
-    duration = models.FloatField(verbose_name='会议持续时长')
+    duration = models.FloatField(verbose_name='会议持续时长（分钟）')
     subject = models.CharField(verbose_name='会议主题', max_length=120)
     abstract = models.TextField(verbose_name='会议大纲')
+    book_time = models.DateTimeField(verbose_name='发起预定时间', auto_now=True)
 
     class Meta:
         verbose_name = '会议室预定信息'
@@ -43,7 +44,13 @@ class BookingInfo(models.Model):
 
 class MeetingInvitation(models.Model):
     user = models.CharField(verbose_name='邀约人', max_length=40)
+    meeting = models.ForeignKey(BookingInfo, verbose_name='会议', on_delete=models.CASCADE)
     member = models.TextField(verbose_name='会议成员')
+
+    def meeting_info(self):
+        return {'时间': self.meeting.start_time, '主题': self.meeting.subject}
+
+    meeting_info.short_description = '会议信息'
 
     class Meta:
         verbose_name = '会议邀约信息'

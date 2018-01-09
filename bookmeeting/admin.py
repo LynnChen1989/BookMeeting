@@ -21,20 +21,21 @@ class MeetingRoomAdmin(admin.ModelAdmin):
 
 @admin.register(MeetingInvitation)
 class MeetingInvitationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'member', 'meeting_info')
     list_per_page = 20
 
 
 @admin.register(BookingInfo)
 class BookingInfoAdmin(admin.ModelAdmin):
     list_per_page = 20
-    list_filter = ('user', 'duration')
+    list_filter = ('user', 'meeting_room', 'start_time', 'end_time', 'duration', 'subject', 'abstract', 'book_time')
 
 
 class UserAdmin(admin.ModelAdmin):
     list_per_page = 50
     list_display = ('username', 'first_name', 'email', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('is_active', 'username')
-    search_fields = ('username', )
+    search_fields = ('username',)
     actions = ['sync_user_from_oa']
 
     def sync_user_from_oa(self, request, queryset):

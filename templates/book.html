@@ -69,13 +69,13 @@
 
                 <div class="clearfix form-actions">
                     <div class="col-md-offset-3 col-md-9">
-                        <button class="btn btn-info" type="button">
+                        <button class="btn btn-info" type="button" id="start-book">
                             <i class="ace-icon fa fa-check bigger-110"></i>发起预定
                         </button>
 
                         &nbsp; &nbsp; &nbsp;
-                        <button class="btn" type="reset">
-                            <i class="ace-icon fa fa-undo bigger-110"></i>取消预定
+                        <button class="btn" type="reset" v-on:click="returnBack">
+                            <i class="ace-icon fa fa-undo bigger-110" id="cancel-book"></i>取消预定
                         </button>
                     </div>
                 </div>
@@ -138,6 +138,12 @@
                     this.$http.get(this.userApiUrl).then(function (response) {
                         this.userList = response.data;
                     })
+                },
+                returnBack: function () {
+                    window.location.href = "{% url 'bookmeeting' %}"
+                },
+                startBook: function () {
+                    
                 }
             }
         })
