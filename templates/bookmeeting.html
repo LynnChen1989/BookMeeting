@@ -98,12 +98,13 @@
     <script type="text/javascript">
 
         // 日历渲染
-        var renderFullCalendar = function (id, name) {
+        var renderFullCalendar = function (meetingRoomName, meetingEvents) {
+            console.log('xxx', meetingRoomName, meetingEvents);
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
-            var meetingRoomName = name;
+            var name = meetingRoomName;
             var calendar = $('#calendar').fullCalendar({
                 lang: 'zh-CN',
                 timezone: 'local',
@@ -129,35 +130,21 @@
                     center: 'title',
                     right: 'agendaDay,agendaWeek,month'
                 },
-                events: [
-                    {
-                        title: meetingRoomName,
-                        start: new Date(y, m, d, 16, 0),
-                        end: new Date(y, m, d, 17, 0),
-                        allDay: false,
-                        className: 'label-info'
-                    }
-                ],
-                eventResize: function (event, delta, revertFunc) {
-                    alert(event.title + " end is now " + event.end.format());
-                    if (!confirm("is this okay?")) {
-                        revertFunc();
-                    }
-                },
+                events: meetingEvents,
                 editable: true,
-                droppable: true,
-                drop: function (date) {
-                    var originalEventObject = $(this).data('eventObject');
-                    var $extraEventClass = $(this).attr('data-class');
-                    var copiedEventObject = $.extend({}, originalEventObject);
-                    copiedEventObject.start = date;
-                    copiedEventObject.allDay = false;
-                    if ($extraEventClass) copiedEventObject['className'] = [$extraEventClass];
-                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-                    if ($('#drop-remove').is(':checked')) {
-                        $(this).remove();
-                    }
-                },
+{#                droppable: true,#}
+{#                drop: function (date) {#}
+{#                    var originalEventObject = $(this).data('eventObject');#}
+{#                    var $extraEventClass = $(this).attr('data-class');#}
+{#                    var copiedEventObject = $.extend({}, originalEventObject);#}
+{#                    copiedEventObject.start = date;#}
+{#                    copiedEventObject.allDay = false;#}
+{#                    if ($extraEventClass) copiedEventObject['className'] = [$extraEventClass];#}
+{#                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);#}
+{#                    if ($('#drop-remove').is(':checked')) {#}
+{#                        $(this).remove();#}
+{#                    }#}
+{#                },#}
                 selectable: true,
                 selectHelper: true,
                 select: function (start, end, allDay) {
@@ -209,7 +196,8 @@
         var token = "{{ csrf_token }}";
         var data = {
             meetingRoomInfoUrl: "{% url 'bookmeeting:meetingroot-info' %}",
-            meetingRoomList: '',
+            meetingBookingUrl: "{% url 'bookmeeting:booking' %}",
+            meetingRoomList: '', // 这里面包含了当前会议室的预定信息
             currentChooseMeetingRoom: ''
         };
         // vue
@@ -223,16 +211,36 @@
                     this.renderBookMeeting(this.currentChooseMeetingRoom)
                 }
             },
-            mounted: function () {
+            created: function () {
                 this.getMeetingRoom();
-                this.initRender();
+            },
+            mounted: function () {
+                {#                this.initRender();#}
             },
             methods: {
+                generateEvents: function (booking_info) {
+                    // 根据booking_info，来生成页面展示的events
+                    var eventsList = [];
+                    if (0 !== booking_info.length) {
+                        $.each(booking_info, function (k, v) {
+                            var item = {
+                                title: v.subject + "【" + v.user + "】",
+                                start: new Date(v.start_time),
+                                end: new Date(v.end_time),
+                                allDay: false,
+                                className: 'label-info'
+                            };
+                            eventsList.push(item)
+                        })
+                    }
+                    return eventsList
+                },
                 getMeetingRoom: function () {
                     this.$http.get(this.meetingRoomInfoUrl).then(function (response) {
                         var result = response.data;
                         // 把列表中的第一个作为页面的默认渲染
                         this.currentChooseMeetingRoom = result[0];
+                        this.initRender();
                         this.meetingRoomList = result
                     })
                 },
@@ -240,10 +248,12 @@
                 renderBookMeeting: function (m, e) {
                     $("#calendar").replaceWith("<div id='calendar'></div>");
                     this.currentChooseMeetingRoom = m;
-                    renderFullCalendar(m.id, m.name)
+                    renderFullCalendar(m.name, this.generateEvents(m.booking_info))
                 },
                 initRender: function () {
-                    renderFullCalendar(this.currentChooseMeetingRoom.id, this.currentChooseMeetingRoom.name)
+                    //初始化的时候，第一个会议室作为默认值
+                    renderFullCalendar(this.currentChooseMeetingRoom.name,
+                        this.generateEvents(this.currentChooseMeetingRoom.booking_info))
                 }
             }
 

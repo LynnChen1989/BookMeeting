@@ -10,7 +10,6 @@ from bookmeeting.models import MeetingRoom, BookingInfo
 
 class MeetRoomView(ListAPIView):
     serializer_class = MeetingRoomSerializer
-
     queryset = MeetingRoom.objects.all()
 
 
@@ -21,7 +20,10 @@ class UserListView(ListAPIView):
 
 class BookView(ListCreateAPIView):
     serializer_class = BookingInfoSerializer
-    queryset = BookingInfo.objects.all()
+
+    def get_queryset(self):
+        queryset = BookingInfo.objects.all()
+        return queryset
 
     def perform_create(self, serializer):
         # 保存外键表的方法
@@ -33,4 +35,3 @@ class BookView(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         print(request.data)
         return self.create(request, *args, **kwargs)
-
