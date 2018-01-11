@@ -85,7 +85,8 @@
                 <div class="widget-body">
                     <div class="widget-main no-padding">
                         <div class="space-4"></div>
-                        <img width="200px" height="200px" style="border-radius:20px;" :src="currentChooseMeetingRoom.picture"/>
+                        <img width="200px" height="200px" style="border-radius:20px;"
+                             :src="currentChooseMeetingRoom.picture"/>
                     </div>
                 </div>
             </div>
@@ -95,35 +96,6 @@
 
 {% block external_script %}
     <script type="text/javascript">
-        // 根据时间戳生成 "2017/09/11 12:00:00 星期一" 这种格式
-        function getzf(num) {
-            if (parseInt(num) < 10) {
-                num = '0' + num;
-            }
-            return num;
-        }
-        function getMyDate(str) {
-            var oDate = new Date(str),
-                oYear = oDate.getFullYear(),
-                oMonth = oDate.getMonth() + 1,
-                oDay = oDate.getDate(),
-                oHour = oDate.getHours(),
-                oMin = oDate.getMinutes(),
-                oSen = oDate.getSeconds();
-            var oWeek = "日一二三四五六".charAt(oDate.getDay());
-            return oYear + '/' + getzf(oMonth) + '/' + getzf(oDay) + ' ' + getzf(oHour) + ':' + getzf(oMin) + ':' + getzf(oSen) + '星期' + oWeek;
-        }
-
-        function getTimeDelta(start, end) {
-            var date3 = end - start;
-            var days = Math.floor(date3 / (24 * 3600 * 1000));
-            var leave1 = date3 % (24 * 3600 * 1000);
-            var hours = Math.floor(leave1 / (3600 * 1000));
-            var leave2 = leave1 % (3600 * 1000);
-            var minutes = Math.floor(leave2 / (60 * 1000));
-            return days + "天 " + hours + "小时 " + minutes + " 分钟"
-        }
-
 
         // 日历渲染
         var renderFullCalendar = function (id, name) {
@@ -189,27 +161,7 @@
                 selectable: true,
                 selectHelper: true,
                 select: function (start, end, allDay) {
-                    var startTime = getMyDate(start);
-                    var endTime = getMyDate(end);
-                    var costTime = getTimeDelta(start, end);
-                    window.location.href = "{% url 'book' %}?start=" + startTime + "&end=" + endTime
-                        + "&during=" + costTime + "&meetingroom=" + meetingRoomName;
-                    {#                    bootbox.prompt("会议室预定", function (title) {#}
-                    {#                        if (title !== null) {#}
-                    {#                            calendar.fullCalendar('renderEvent',#}
-                    {#                                {#}
-                    {#                                    title: title,#}
-                    {#                                    start: start,#}
-                    {#                                    end: end,#}
-                    {#                                    allDay: allDay,#}
-                    {#                                    className: 'label-info'#}
-                    {#                                },#}
-                    {#                                true // make the event "stick"#}
-                    {#                            );#}
-                    {#                        }#}
-                    {#                    });#}
-                    {##}
-                    {#                    calendar.fullCalendar('unselect');#}
+                    window.location.href = "{% url 'book' %}?start=" + start + "&end=" + end + "&meetingroom=" + meetingRoomName;
                 },
                 eventClick: function (calEvent, jsEvent, view) {
                     //点击事件后的操作

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.response import Response
@@ -32,3 +33,4 @@ class BookView(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         print(request.data)
         return self.create(request, *args, **kwargs)
+

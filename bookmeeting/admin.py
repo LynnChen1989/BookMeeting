@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from bookmeeting.models import BookingInfo, MeetingInvitation, MeetingRoom
+from bookmeeting.models import BookingInfo, MeetingRoom
 
 
 # Register your models here.
@@ -19,16 +19,12 @@ class MeetingRoomAdmin(admin.ModelAdmin):
     inlines = [MeetingRoomBookInline, ]
 
 
-@admin.register(MeetingInvitation)
-class MeetingInvitationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'member', 'meeting_info')
-    list_per_page = 20
-
-
 @admin.register(BookingInfo)
 class BookingInfoAdmin(admin.ModelAdmin):
     list_per_page = 20
-    list_filter = ('user', 'meeting_room', 'start_time', 'end_time', 'duration', 'subject', 'abstract', 'book_time')
+    list_display = ('user', 'meeting_room', 'start_time', 'end_time',
+                    'duration', 'subject', 'abstract', 'member', 'book_time', 'invitation')
+    list_filter = ('user', 'meeting_room')
 
 
 class UserAdmin(admin.ModelAdmin):

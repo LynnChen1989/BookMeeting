@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from bookmeeting.models import MeetingRoom, MeetingInvitation, BookingInfo
+from bookmeeting.models import MeetingRoom, BookingInfo
 import random
 
 

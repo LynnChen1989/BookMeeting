@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <div xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
-        <table class="table table-bordered" id="book-base-info">
+    <div xmlns:v-bind="http://www.w3.org/1999/xhtml">
+        <table class="table table-bordered">
             <tr>
                 <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">会议室</span></td>
                 <td><span class="blue bigger-105"><% meetingRoomName %></span></td>
@@ -19,7 +19,7 @@
 
 {% block page_content %}
     <div class="row">
-        <div class="col-xs-12" id="book-handle">
+        <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
             <form class="form-horizontal" role="form">
                 <div class="form-group">
@@ -27,26 +27,26 @@
                         <span style="color: orangered">*</span>
                     </label>
                     <div class="col-sm-9">
-                        <input type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5"/>
+                        <input type="text" id="form-field-1" v-model="meetingSubject" class="col-xs-10 col-sm-5"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 会议大纲
+                    <label class="col-sm-3 control-label no-padding-right" for="meeting-abstract"> 会议大纲
                         <span style="color: orangered">*</span>
                     </label>
                     <div class="col-sm-9">
-                        <textarea class="col-xs-10 col-sm-5" id="form-field-8" placeholder=""></textarea>
+                        <textarea class="col-xs-10 col-sm-5" id="meeting-abstract" v-model="meetingAbstract"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3 no-padding-right"> 参会人员
+                    <label class="control-label col-sm-3 no-padding-right" for="user-list"> 参会人员
                         <span style="color: orangered">*</span>
                     </label>
 
                     <div class="col-xs-12 col-sm-9">
-                        <select multiple="" id="state" name="state" class="select2"
+                        <select multiple id="user-list" me="state" class="select2"
                                 data-placeholder="点击选择">
-                            <option v-for="user in userList" v-bind:value="user.username">
+                            <option v-for="user in userList" :value="user.username">
                                 <% user.username %>[<% user.first_name %>]
                             </option>
                         </select>
@@ -60,7 +60,8 @@
                     <div class="col-sm-9">
                         <div class="checkbox col-xs-12 col-sm-9">
                             <label>
-                                <input name="col-xs-12 col-sm-9 form-field-checkbox" type="checkbox" class="ace">
+                                <input name="col-xs-12 col-sm-9 form-field-checkbox" type="checkbox" class="ace"
+                                       v-model="mailToMember">
                                 <span class="lbl"></span>
                             </label>
                         </div>
@@ -69,7 +70,7 @@
 
                 <div class="clearfix form-actions">
                     <div class="col-md-offset-3 col-md-9">
-                        <button class="btn btn-info" type="button" id="start-book">
+                        <button class="btn btn-info" type="button" id="start-book" v-on:click="startBook">
                             <i class="ace-icon fa fa-check bigger-110"></i>发起预定
                         </button>
 
@@ -82,19 +83,48 @@
             </form>
         </div>
     </div>
-
 {% endblock %}
 
 {% block external_script %}
     <script>
+        var token = "{{ csrf_token }}";
+        function getTimeDeltaMinutes(start, end) {
+            var date3 = end - start;
+            var leave1 = date3 % (24 * 3600 * 1000);
+            var hours = Math.floor(leave1 / (3600 * 1000));
+            var leave2 = leave1 % (3600 * 1000);
+            var minutes = Math.floor(leave2 / (60 * 1000));
+            return hours * 60 + minutes
+        }
+        function getzf(num) {
+            if (parseInt(num) < 10) {
+                num = '0' + num;
+            }
+            return num;
+        }
+        function getMyDate(str) {
+            var timeStamp = parseInt(str);
+            var oDate = new Date(timeStamp),
+                oYear = oDate.getFullYear(),
+                oMonth = oDate.getMonth() + 1,
+                oDay = oDate.getDate(),
+                oHour = oDate.getHours(),
+                oMin = oDate.getMinutes(),
+                oSen = oDate.getSeconds();
+            var oWeek = "日一二三四五六".charAt(oDate.getDay());
+            return oYear + '-' + getzf(oMonth) + '-' + getzf(oDay) + ' ' + getzf(oHour) + ':' + getzf(oMin) + ':' + getzf(oSen) + ',' + '星期' + oWeek;
+        }
+        function getTimeDelta(start, end) {
+            var date3 = end - start;
+            var days = Math.floor(date3 / (24 * 3600 * 1000));
+            var leave1 = date3 % (24 * 3600 * 1000);
+            var hours = Math.floor(leave1 / (3600 * 1000));
+            var leave2 = leave1 % (3600 * 1000);
+            var minutes = Math.floor(leave2 / (60 * 1000));
+            return days + "天 " + hours + "小时 " + minutes + " 分钟"
+        }
 
-        // 多选框处理
-        jQuery(function ($) {
-            $('.select2').css('width', '400px').select2({
-                allowClear: true
-            })
-        });
-
+        // 获取链接里面的参数
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
                 sURLVariables = sPageURL.split('&'),
@@ -108,32 +138,36 @@
             }
         };
 
-        // 头部信息
-        var app_header = new Vue({
-            el: "#book-base-info",
-            delimiters: ["<%", "%>"],
-            data: {
-                startTime: getUrlParameter('start'),
-                endTime: getUrlParameter('end'),
-                costTime: getUrlParameter('during'),
-                meetingRoomName: getUrlParameter('meetingroom')
-            }
-        });
-
-        // 预定正文信息
+        // 预定处理信息
         var vueData = {
+            startTime: getMyDate(getUrlParameter('start')),
+            endTime: getMyDate(getUrlParameter('end')),
+            costTime: getTimeDelta(getUrlParameter('start'), getUrlParameter('end')),
+            meetingRoomName: getUrlParameter('meetingroom'),
+            meetingAbstract: '',
+            meetingSubject: '',
+            meetingMember: [],
+            meetingDurationMinutes: getTimeDeltaMinutes(getUrlParameter('start'), getUrlParameter('end')),
+            mailToMember: true,
             userApiUrl: "{% url 'bookmeeting:users' %}",
-            userList: []
+            bookApiUrl: "{% url 'bookmeeting:booking' %}",
+            userList: [],
         };
 
         var app_content = new Vue({
-            el: "#book-handle",
+            el: "#book-page-content",
             delimiters: ["<%", "%>"],
             data: vueData,
             mounted: function () {
-                this.getUserList()
+                this.getUserList();
+                this.initSelect2()
             },
             methods: {
+                initSelect2: function () {
+                    $('.select2').css('width', '400px').select2({
+                        allowClear: true
+                    })
+                },
                 getUserList: function () {
                     this.$http.get(this.userApiUrl).then(function (response) {
                         this.userList = response.data;
@@ -143,7 +177,41 @@
                     window.location.href = "{% url 'bookmeeting' %}"
                 },
                 startBook: function () {
-                    
+                    var chooseMembers = $("#user-list").val();
+                    var meetingMember = '';
+                    if (chooseMembers === null) {
+                        meetingMember = ''
+                    } else {
+                        $.each(chooseMembers, function (key, value) {
+                            meetingMember += value + ';'
+                        });
+                    }
+                    var item = {
+                        'user': 'chenlin002',
+                        'meeting_room': this.meetingRoomName,
+                        'start_time': this.startTime.split(",", 1)[0],
+                        'end_time': this.endTime.split(",", 1)[0],
+                        'subject': this.meetingSubject,
+                        'abstract': this.meetingAbstract,
+                        'duration': this.meetingDurationMinutes,
+                        'invitation': this.mailToMember,
+                        'member': meetingMember
+                    };
+                    //设置跨域请求header
+                    console.log(item);
+                    Vue.http.headers.common['X-CSRFToken'] = Cookies.get('csrftoken');
+                    this.$http.post(this.bookApiUrl, item).then(function (response) {
+                        bootbox.alert("恭喜👏 会议室预定成功，请注意查收邮件并准时参加会议，3秒后自动跳转！");
+                        setTimeout(function () {
+                            window.location.href = "{% url 'bookmeeting' %}"
+                        }, 2500);
+                    }, function (xhr, response) {
+                        if (xhr.status === 400) {
+                            alert('无效请求，请检查必填参数是否正确！')
+                        } else if (xhr.status === 500) {
+                            alert('服务器错误，预定失败!')
+                        }
+                    });
                 }
             }
         })

@@ -53,6 +53,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+CORS_ORIGIN_WHITELIST = (
+    '*',
+)
+
+CSRF_TRUSTED_ORIGINS = (
+    '127.0.0.1',
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

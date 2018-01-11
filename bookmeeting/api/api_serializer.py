@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-from bookmeeting.models import MeetingRoom, MeetingInvitation, BookingInfo
+from bookmeeting.models import MeetingRoom, BookingInfo
 from rest_framework import serializers
 
 
@@ -21,4 +21,5 @@ class BookingInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookingInfo
-        fields = ('user', 'meeting_room', 'start_time', 'end_time', 'duration', 'subject', 'abstract', 'book_time')
+        fields = ('user', 'meeting_room', 'start_time', 'end_time',
+                  'duration', 'subject', 'abstract', 'book_time', 'invitation', 'member')
