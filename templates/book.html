@@ -201,10 +201,10 @@
                     console.log(item);
                     Vue.http.headers.common['X-CSRFToken'] = Cookies.get('csrftoken');
                     this.$http.post(this.bookApiUrl, item).then(function (response) {
-                        bootbox.alert("恭喜👏 会议室预定成功，请注意查收邮件并准时参加会议，3秒后自动跳转！");
+                        bootbox.alert("恭喜👏 会议室预定成功，请注意查收邮件并准时参加会议，2秒后自动跳转！");
                         setTimeout(function () {
                             window.location.href = "{% url 'bookmeeting' %}"
-                        }, 2500);
+                        }, 2000);
                     }, function (xhr, response) {
                         if (xhr.status === 400) {
                             alert('无效请求，请检查必填参数是否正确！')

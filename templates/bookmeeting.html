@@ -15,8 +15,6 @@
 {% block page_content %}
     <div class="row">
         <div class="col-sm-9">
-            <h3 class="purple" align="center"><i class="fa fa-empire"></i> <% currentChooseMeetingRoom.name %></h3>
-            <div class="space"></div>
             <div id="calendar"></div>
         </div>
 
@@ -59,18 +57,21 @@
                             <div class="external-event label-success label-white"
                                  data-class="label-success">
                                 <i class="ace-icon fa fa-clock-o"></i>
-                                上午 已预订：0小时30分； 可预订：1小时30分
+                                上午 已预订：<% currentMeetingRoomTodayBook.forenoon_book %>；
+                                可预订：<% currentMeetingRoomTodayBook.forenoon_rest %>
                             </div>
 
                             <div class="external-event label-info label-white" data-class="label-info">
                                 <i class="ace-icon fa fa-clock-o"></i>
-                                下午 已预订：0小时30分； 可预订：1小时30分
+                                下午 已预订：<% currentMeetingRoomTodayBook.afternoon_book %>；
+                                可预订：<% currentMeetingRoomTodayBook.afternoon_rest %>
                             </div>
 
 
                             <div class="external-event label-warning label-white" data-class="label-info">
                                 <i class="ace-icon fa fa-clock-o"></i>
-                                晚上 已预订：0小时30分； 可预订：1小时30分
+                                晚上 已预订：<% currentMeetingRoomTodayBook.evening_book %>；
+                                可预订：<% currentMeetingRoomTodayBook.evening_rest %>
                             </div>
                         </div>
                     </div>
@@ -90,25 +91,46 @@
                     </div>
                 </div>
             </div>
+
+             <div class="widget-box transparent">
+                <div class="widget-header">
+                    <h4>会议室公约</h4>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <div class="space-4"></div>
+                        <ul style="color: #00BE67">
+                            <li>请严格按需预定会议室</li>
+                            <li>只可预定本周会议室</li>
+                            <li>预定未使用超过3次将取消预定资格</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block external_script %}
     <script type="text/javascript">
-
         // 日历渲染
         var renderFullCalendar = function (meetingRoomName, meetingEvents) {
-            console.log('xxx', meetingRoomName, meetingEvents);
+            // console.log(meetingEvents);
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
             var name = meetingRoomName;
             var calendar = $('#calendar').fullCalendar({
+                customButtons: {
+                    meetingRoomButton: {
+                        text: meetingRoomName
+                    }
+                },
                 lang: 'zh-CN',
                 timezone: 'local',
-                minTime: '06:00:00',
+                minTime: '08:00:00',
                 maxTime: '23:59:59',
                 displayEventTime: true,
                 displayEventEnd: true,
@@ -121,14 +143,14 @@
                 buttonText: {
                     month: '月视图',
                     agendaWeek: '周视图',
-                    agendaDay: '天视图'
+                    agendaDay: '日视图'
                 },
                 buttonHtml: {
                     prev: '<i class="ace-icon fa fa-chevron-left"></i>',
                     next: '<i class="ace-icon fa fa-chevron-right"></i>'
                 },
                 header: {
-                    left: 'prev,next',
+                    left: 'prev,next meetingRoomButton',
                     center: 'title',
                     right: 'agendaDay,agendaWeek,month'
                 },
@@ -142,29 +164,20 @@
                 eventClick: function (calEvent, jsEvent, view) {
                     //点击事件后的操作
                     var modal =
-                        '<div class="modal fade">\
-                          <div class="modal-dialog">\
+                        '<div class="modal fade" style="text-align: center; top:50%" >\
+                          <div class="modal-dialog modal-sm modal-dialog-centered" style="vertical-align: middle">\
                            <div class="modal-content">\
-                            <div class="modal-body">\
-                             <button type="button" class="close" data-dismiss="modal" style="margin-top:-10px;">&times;</button>\
-                              <form class="no-margin">\
-                                <label>修改会议主题 &nbsp;</label>\
-                                 <input class="middle" autocomplete="off" type="text" value="' + calEvent.title + '" />\
-					            <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i>保存</button>\
-				              </form>\
-				          </div>\
-				         <div class="modal-footer">\
-					        <button type="button" class="btn btn-sm btn-danger" data-action="delete"><i class="ace-icon fa fa-trash-o"></i>删除预定</button>\
-					        <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>取消</button>\
-				        </div>\
-			           </div>\
-			          </div>\
-			        </div>';
+				            <div class="modal-body" style="text-align: center">\
+					         <button type="button" class="btn btn-sm btn-danger" data-action="delete"><i class="ace-icon fa fa-trash-o"></i>删除预定</button>\
+					         <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>取消操作</button>\
+				            </div>\
+			              </div>\
+			             </div>\
+			            </div>';
 
                     var modal = $(modal).appendTo('body');
                     modal.find('form').on('submit', function (ev) {
                         ev.preventDefault();
-
                         calEvent.title = $(this).find("input[type=text]").val();
                         calendar.fullCalendar('updateEvent', calEvent);
                         modal.modal("hide");
@@ -174,6 +187,8 @@
                             return (ev._id === calEvent._id);
                         });
                         modal.modal("hide");
+
+                        console.log('删除预定操作')
                     });
                     modal.modal('show').on('hidden', function () {
                         modal.remove();
@@ -186,8 +201,10 @@
         var data = {
             meetingRoomInfoUrl: "{% url 'bookmeeting:meetingroot-info' %}",
             meetingBookingUrl: "{% url 'bookmeeting:booking' %}",
+            meetingBookTodayUrl: "{% url 'bookmeeting:today-book' %}",
             meetingRoomList: '', // 这里面包含了当前会议室的预定信息
-            currentChooseMeetingRoom: ''
+            currentChooseMeetingRoom: '', //当前选择的会议室
+            currentMeetingRoomTodayBook: '' //当前会议室今日预定情况
         };
         // vue
         var app = new Vue({
@@ -207,13 +224,18 @@
                 {#                this.initRender();#}
             },
             methods: {
+                getTodayBook: function (meeting_room) {
+                    this.$http.get(this.meetingBookTodayUrl + "?meetingroom=" + meeting_room).then(function (response) {
+                        this.currentMeetingRoomTodayBook = response.data
+                    })
+                },
                 generateEvents: function (booking_info) {
                     // 根据booking_info，来生成页面展示的events
                     var eventsList = [];
                     if (0 !== booking_info.length) {
                         $.each(booking_info, function (k, v) {
                             var item = {
-                                title: v.subject + "【" + v.user + "】",
+                                title: v.subject + "[" + v.user + "]",
                                 start: new Date(v.start_time),
                                 end: new Date(v.end_time),
                                 allDay: false,
@@ -237,10 +259,12 @@
                 renderBookMeeting: function (m, e) {
                     $("#calendar").replaceWith("<div id='calendar'></div>");
                     this.currentChooseMeetingRoom = m;
+                    this.getTodayBook(this.currentChooseMeetingRoom.name);
                     renderFullCalendar(m.name, this.generateEvents(m.booking_info))
                 },
                 initRender: function () {
                     //初始化的时候，第一个会议室作为默认值
+                    this.getTodayBook(this.currentChooseMeetingRoom.name);
                     renderFullCalendar(this.currentChooseMeetingRoom.name,
                         this.generateEvents(this.currentChooseMeetingRoom.booking_info))
                 }
