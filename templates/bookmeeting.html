@@ -115,6 +115,8 @@
                 aspectRatio: 2.2,
                 firstDay: 1,
                 defaultView: 'agendaWeek',
+                disableDragging: true,
+                disableResizing: true,
                 allDaySlot: false,
                 buttonText: {
                     month: '月视图',
@@ -131,20 +133,7 @@
                     right: 'agendaDay,agendaWeek,month'
                 },
                 events: meetingEvents,
-                editable: true,
-{#                droppable: true,#}
-{#                drop: function (date) {#}
-{#                    var originalEventObject = $(this).data('eventObject');#}
-{#                    var $extraEventClass = $(this).attr('data-class');#}
-{#                    var copiedEventObject = $.extend({}, originalEventObject);#}
-{#                    copiedEventObject.start = date;#}
-{#                    copiedEventObject.allDay = false;#}
-{#                    if ($extraEventClass) copiedEventObject['className'] = [$extraEventClass];#}
-{#                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);#}
-{#                    if ($('#drop-remove').is(':checked')) {#}
-{#                        $(this).remove();#}
-{#                    }#}
-{#                },#}
+                editable: false,
                 selectable: true,
                 selectHelper: true,
                 select: function (start, end, allDay) {
@@ -161,12 +150,12 @@
                               <form class="no-margin">\
                                 <label>修改会议主题 &nbsp;</label>\
                                  <input class="middle" autocomplete="off" type="text" value="' + calEvent.title + '" />\
-					        <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i>保存</button>\
-				          </form>\
-				         </div>\
-				        <div class="modal-footer">\
-					     <button type="button" class="btn btn-sm btn-danger" data-action="delete"><i class="ace-icon fa fa-trash-o"></i>删除预定</button>\
-					     <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>取消</button>\
+					            <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i>保存</button>\
+				              </form>\
+				          </div>\
+				         <div class="modal-footer">\
+					        <button type="button" class="btn btn-sm btn-danger" data-action="delete"><i class="ace-icon fa fa-trash-o"></i>删除预定</button>\
+					        <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>取消</button>\
 				        </div>\
 			           </div>\
 			          </div>\
@@ -182,7 +171,7 @@
                     });
                     modal.find('button[data-action=delete]').on('click', function () {
                         calendar.fullCalendar('removeEvents', function (ev) {
-                            return (ev._id == calEvent._id);
+                            return (ev._id === calEvent._id);
                         });
                         modal.modal("hide");
                     });
