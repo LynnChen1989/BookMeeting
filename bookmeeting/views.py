@@ -33,3 +33,7 @@ class BookView(TemplateView):
         return context
 
     template_name = 'book.html'
+
+
+class LoginView(TemplateView):
+    template_name = 'login.html'

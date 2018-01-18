@@ -24,70 +24,84 @@
 </head>
 
 <body class="no-skin">
-<div id="navbar" class="navbar navbar-default  ace-save-state">
-    <div class="navbar-container ace-save-state" id="navbar-container">
-        <div class="navbar-header pull-left">
-            <a href="l" class="navbar-brand">
-                <small>
-                    <i class="fa fa-leanpub"></i>
-                    龙渊会议室预定系统
-                </small>
-            </a>
-        </div>
+{% block main-content %}
+    <div id="navbar" class="navbar navbar-default  ace-save-state">
+        <div class="navbar-container ace-save-state" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="l" class="navbar-brand">
+                    <small>
+                        <i class="fa fa-leanpub"></i>
+                        龙渊会议室预定系统
+                    </small>
+                </a>
+            </div>
 
-        <div class="navbar-buttons navbar-header pull-right" role="navigation">
-            <ul class="nav ace-nav">
-                <li class="light-blue dropdown-modal">
-                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="{% static 'assets/images/avatars/user.jpg' %}"
-                             alt="Jason's Photo"/>
-                        <span class="user-info">
+            <div class="navbar-buttons navbar-header pull-right" role="navigation">
+
+                <ul class="nav ace-nav">
+                    <li class="light-grey">
+                        <span id="date"></span>
+                        <div id="clock" style="display: inline-block">
+                            <span class="unit" id="hours"></span>:
+                            <span class="unit" id="minutes"></span>:
+                            <span class="unit" id="seconds"></span>
+                            <span class="unit" id="ampm"></span>
+                            &nbsp;&nbsp;
+                        </div>
+                    </li>
+                    <li>
+                    </li>
+                    <li class="light-blue dropdown-modal">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                            <img class="nav-user-photo" src="{% static 'assets/images/avatars/user.jpg' %}"
+                                 alt="Jason's Photo"/>
+                            <span class="user-info">
 									<small>欢迎您,</small>
 									{{ user.username }}
 								</span>
 
-                        <i class="ace-icon fa fa-caret-down"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div><!-- /.navbar-container -->
-</div>
-
-<div class="main-container ace-save-state" id="main-container">
-    <div class="main-content">
-        <div class="main-content-inner">
-            <div class="page-content" id="book-page-content">
-                <div class="page-header">
-                    {% block header %}
-                    {% endblock %}
-                </div><!-- /.page-header -->
-
-                <div class="row">
-                    <div class="col-xs-12">
-                        <!-- PAGE CONTENT BEGINS -->
-                        {% block page_content %}
-                        {% endblock %}
-                        <!-- PAGE CONTENT ENDS -->
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.page-content -->
-        </div>
-    </div><!-- /.main-content -->
-
-    <div class="footer">
-        <div class="footer-inner">
-            <div class="footer-content">
-                ©2018 All Rights Reserved.版权所有.成都龙渊网络科技有限公司
+                            <i class="ace-icon fa fa-caret-down"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </div><!-- /.navbar-container -->
     </div>
 
-    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-    </a>
-</div><!-- /.main-container -->
+    <div class="main-container ace-save-state" id="main-container">
+        <div class="main-content">
+            <div class="main-content-inner">
+                <div class="page-content" id="book-page-content">
+                    <div class="page-header">
+                        {% block header %}
+                        {% endblock %}
+                    </div><!-- /.page-header -->
 
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- PAGE CONTENT BEGINS -->
+                            {% block page_content %}
+                            {% endblock %}
+                            <!-- PAGE CONTENT ENDS -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.page-content -->
+            </div>
+        </div><!-- /.main-content -->
+
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    ©2018 All Rights Reserved.版权所有.成都龙渊网络科技有限公司
+                </div>
+            </div>
+        </div>
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div><!-- /.main-container -->
+{% endblock %}
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
@@ -112,6 +126,50 @@
 <script src="{% static 'assets/js/select2.min.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js"></script>
 {#<script src="https://cdn.bootcss.com/vue/1.0.28/vue.js"></script>#}
+<script>
+    var $dOut = $('#date'),
+        $hOut = $('#hours'),
+        $mOut = $('#minutes'),
+        $sOut = $('#seconds'),
+        $ampmOut = $('#ampm');
+    var months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+    var days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+    function update() {
+        var date = new Date();
+        var ampm = date.getHours() < 12
+            ? 'AM'
+            : 'PM';
+
+        var hours = date.getHours() == 0
+            ? 12
+            : date.getHours() > 12
+                ? date.getHours() - 12
+                : date.getHours();
+
+        var minutes = date.getMinutes() < 10
+            ? '0' + date.getMinutes()
+            : date.getMinutes();
+
+        var seconds = date.getSeconds() < 10
+            ? '0' + date.getSeconds()
+            : date.getSeconds();
+
+        var dayOfWeek = days[date.getDay()];
+        var month = months[date.getMonth()];
+        var day = date.getDate();
+        var year = date.getFullYear();
+        //var dateString = dayOfWeek + ', ' + month + ' ' + day + ', ' + year;
+        var dateString = year + '年' + month + day + '日' + ',' + dayOfWeek;
+        $dOut.text(dateString);
+        $hOut.text(hours);
+        $mOut.text(minutes);
+        $sOut.text(seconds);
+        $ampmOut.text(ampm);
+    }
+    update();
+    window.setInterval(update, 1000);
+</script>
 {% block external_script %}
 {% endblock %}
 </body>

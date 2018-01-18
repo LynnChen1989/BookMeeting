@@ -8,5 +8,6 @@ urlpatterns = [
     url(r"users/$", UserListView.as_view(), name='users'),
     url(r"booking/$", BookView.as_view(), name='booking'),
     url(r"today-book/$", BookCollectionView.as_view(), name='today-book'),
+    url(r"today-book/$", BookCollectionView.as_view(), name='today-book'),
 
 ]
