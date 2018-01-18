@@ -7,6 +7,7 @@ from datetime import datetime
 import pytz
 from rest_framework.views import APIView
 
+from bookmeeting.api.public import week_range
 from .api_serializer import MeetingRoomSerializer, UserSerializer, BookingInfoSerializer
 from bookmeeting.models import MeetingRoom, BookingInfo
 
@@ -37,6 +38,20 @@ class BookView(ListCreateAPIView, DestroyAPIView):
 
     def post(self, request, *args, **kwargs):
         # TODO 预定的时候会出现覆盖的情况，目前没想好怎么处理
+        today = datetime.today()
+        wek = week_range(today)
+        # 只允许预定本周的会议室
+        st, ed = wek[0].strftime('%Y-%m-%d 00:00:00'), wek[1].strftime('%Y-%m-%d 23:59:59')
+
+        request_data = request.data
+        start_time = request_data.get('start_time')
+        end_time = request_data.get('end_time')
+
+        if start_time < st or start_time > ed or end_time < st or end_time > ed:
+            return Response({
+                'message': '只允许预定本周的会议室',
+                'status': 901
+            })
         return self.create(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):

@@ -4,14 +4,22 @@
     <div xmlns:v-bind="http://www.w3.org/1999/xhtml">
         <table class="table table-bordered">
             <tr>
-                <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">会议室</span></td>
+                <td style="background-color: ghostwhite; color: grey">
+                    <span class="bigger-110"> 会议室 </span>
+                </td>
                 <td><span class="blue bigger-105"><% meetingRoomName %></span></td>
-                <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">开始时间</span></td>
+                <td style="background-color: ghostwhite; color: grey">
+                    <span class="bigger-110"> 开始时间</span>
+                </td>
                 <td><span class="blue bigger-105"><% startTime %></span></td>
-                <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">结束时间</span></td>
+                <td style="background-color: ghostwhite; color: grey">
+                    <span class="bigger-110"> 结束时间</span>
+                </td>
                 <td><span class="blue bigger-105"><% endTime %></span></td>
-                <td style="background-color: whitesmoke; color: grey"><span class="bigger-110">持续时间</span></td>
-                <td><span class="blue bigger-105"><% costTime %></span></td>
+                <td style="background-color: ghostwhite; color: grey">
+                    <span class="bigger-110"> 持续时间</span></td>
+                <td><span class="blue bigger-105"><% costTime %></span>
+                </td>
             </tr>
         </table>
     </div>
@@ -23,7 +31,8 @@
             <!-- PAGE CONTENT BEGINS -->
             <form class="form-horizontal" role="form">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 会议主题
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
+                        <i class="fa fa-file-o blue"></i> <span class="grey"> 会议主题 </span>
                         <span style="color: orangered">*</span>
                     </label>
                     <div class="col-sm-9">
@@ -31,7 +40,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="meeting-abstract"> 会议大纲
+                    <label class="col-sm-3 control-label no-padding-right" for="meeting-abstract">
+                        <i class="fa fa-list blue"></i> <span class="grey"> 会议大纲 </span>
                         <span style="color: orangered">*</span>
                     </label>
                     <div class="col-sm-9">
@@ -39,7 +49,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3 no-padding-right" for="user-list"> 参会人员
+                    <label class="control-label col-sm-3 no-padding-right" for="user-list">
+                        <i class="fa fa-user-plus blue"></i> <span class="grey"> 参会人员 </span>
                         <span style="color: orangered">*</span>
                     </label>
 
@@ -54,7 +65,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 邮件通知
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
+                        <i class="fa fa-envelope-o blue"> </i> <span class="grey"> 邮件通知 </span>
                         <span style="color: white">*</span>
                     </label>
                     <div class="col-sm-9">
@@ -213,10 +225,15 @@
                     console.log(item);
                     Vue.http.headers.common['X-CSRFToken'] = Cookies.get('csrftoken');
                     this.$http.post(this.bookApiUrl, item).then(function (response) {
-                        msg.data('messageBox').info('预定成功', '请注意查收邮件并准时参加会议');
-                        setTimeout(function () {
-                            window.location.href = "{% url 'bookmeeting' %}"
-                        }, 2000);
+                        if (response.data.status === 901) {
+                            msg.data('messageBox').danger('抱歉', '只允许预定本周内的会议室，请重新选择');
+                        }
+                        else {
+                            msg.data('messageBox').info('预定成功', '请注意查收邮件并准时参加会议');
+                            setTimeout(function () {
+                                window.location.href = "{% url 'bookmeeting' %}"
+                            }, 2000);
+                        }
                     }, function (xhr, response) {
                         if (xhr.status === 400) {
                             msg.data('messageBox').danger('抱歉', '缺少一些必填的信息');
