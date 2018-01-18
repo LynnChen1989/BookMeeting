@@ -9,7 +9,7 @@ class BookingInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookingInfo
-        fields = ('user', 'meeting_room', 'start_time', 'end_time',
+        fields = ('id', 'user', 'meeting_room', 'start_time', 'end_time',
                   'duration', 'subject', 'abstract', 'book_time', 'invitation', 'member')
 
 

@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from bookmeeting.models import MeetingRoom, BookingInfo
@@ -35,5 +37,6 @@ class BookView(TemplateView):
     template_name = 'book.html'
 
 
-class LoginView(TemplateView):
+class MeetingLoginView(LoginView):
     template_name = 'login.html'
+    form_class = AuthenticationForm

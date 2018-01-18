@@ -16,10 +16,15 @@ Including another URLconf
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include
-from bookmeeting.views import BookMeetingView, BookView, LoginView
+from bookmeeting.views import BookMeetingView, BookView, MeetingLoginView
 from django.conf import settings
 from rest_framework_swagger.views import get_swagger_view
+
+admin.site.site_header = "会议室预定系统后台管理"
+# admin.site.login_template = "login.html"
+admin.site.site_title = "会议室预定系统后台管理"
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
@@ -28,9 +33,9 @@ urlpatterns = [
 
 urlpatterns += [
     path('bookmeeting', BookMeetingView.as_view()),
-    url(r'^$', BookMeetingView.as_view(), name='bookmeeting'),
-    url(r'^book/', BookView.as_view(), name='book'),
-    url(r'^login/', LoginView.as_view(), name='login'),
+    url(r'^$', login_required(BookMeetingView.as_view(), login_url='login'), name='bookmeeting'),
+    url(r'^book/', login_required(BookView.as_view(), login_url='login'), name='book'),
+    url(r'^login/', MeetingLoginView.as_view(), name='login'),
 ]
 
 # for rest_framework

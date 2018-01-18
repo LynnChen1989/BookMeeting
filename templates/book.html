@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block header %}
     <div xmlns:v-bind="http://www.w3.org/1999/xhtml">
         <table class="table table-bordered">
@@ -87,6 +87,18 @@
 
 {% block external_script %}
     <script>
+        var msg = $("body").messageBox({
+            modal: false,
+            autoClose: 2,
+            css: "{% static 'assets/css/messageBox.css' %}",
+            locale: {
+                NO: 'No',
+                YES: 'Yes',
+                CANCEL: '取消',
+                OK: '好',
+                textAutoClose: 'Auto close in %d seconds'
+            }
+        });
         var token = "{{ csrf_token }}";
         function getTimeDeltaMinutes(start, end) {
             var date3 = end - start;
@@ -201,15 +213,15 @@
                     console.log(item);
                     Vue.http.headers.common['X-CSRFToken'] = Cookies.get('csrftoken');
                     this.$http.post(this.bookApiUrl, item).then(function (response) {
-                        bootbox.alert("恭喜👏 会议室预定成功，请注意查收邮件并准时参加会议，2秒后自动跳转！");
+                        msg.data('messageBox').info('预定成功', '请注意查收邮件并准时参加会议');
                         setTimeout(function () {
                             window.location.href = "{% url 'bookmeeting' %}"
                         }, 2000);
                     }, function (xhr, response) {
                         if (xhr.status === 400) {
-                            alert('无效请求，请检查必填参数是否正确！')
+                            msg.data('messageBox').danger('抱歉', '缺少一些必填的信息');
                         } else if (xhr.status === 500) {
-                            alert('服务器错误，预定失败!')
+                            msg.data('messageBox').danger('500', '服务器内部错误');
                         }
                     });
                 }

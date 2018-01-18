@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block header %}
     <ul style="margin-left: 0">
         <li v-for="m in meetingRoomList"
@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-             <div class="widget-box transparent">
+            <div class="widget-box transparent">
                 <div class="widget-header">
                     <h4>会议室公约</h4>
                 </div>
@@ -114,6 +114,19 @@
 
 {% block external_script %}
     <script type="text/javascript">
+        //消息盒子
+        var msg = $("body").messageBox({
+            modal: false,
+            autoClose: 2,
+            css: "{% static 'assets/css/messageBox.css' %}",
+            locale: {
+                NO: 'No',
+                YES: 'Yes',
+                CANCEL: '取消',
+                OK: '好',
+                textAutoClose: 'Auto close in %d seconds'
+            }
+        });
         // 日历渲染
         var renderFullCalendar = function (meetingRoomName, meetingEvents) {
             // console.log(meetingEvents);
@@ -176,19 +189,28 @@
 			            </div>';
 
                     var modal = $(modal).appendTo('body');
-                    modal.find('form').on('submit', function (ev) {
-                        ev.preventDefault();
-                        calEvent.title = $(this).find("input[type=text]").val();
-                        calendar.fullCalendar('updateEvent', calEvent);
-                        modal.modal("hide");
-                    });
                     modal.find('button[data-action=delete]').on('click', function () {
-                        calendar.fullCalendar('removeEvents', function (ev) {
-                            return (ev._id === calEvent._id);
-                        });
                         modal.modal("hide");
-
-                        console.log('删除预定操作')
+                        var eventId = calEvent.id;
+                        $.ajaxSetup({headers: {'X-CSRFToken': Cookies.get('csrftoken')}});
+                        $.ajax({
+                            url: "{% url 'bookmeeting:booking' %}",
+                            type: "DELETE",
+                            data: {'id': eventId, 'bookUser': 'chenlin002'},
+                            success: function (data, textStatus, xhr) {
+                                if (data.status === 900) {
+                                    msg.data('messageBox').danger('抱歉', '您无权删除他人预定的会议室');
+                                }
+                                else {
+                                    calendar.fullCalendar('removeEvents', function (ev) {
+                                        return (ev._id === calEvent._id);
+                                    });
+                                    msg.data('messageBox').info('成功', '您已成功退订会议室');
+                                }
+                            },
+                            error: function () {
+                            }
+                        });
                     });
                     modal.modal('show').on('hidden', function () {
                         modal.remove();
@@ -235,6 +257,7 @@
                     if (0 !== booking_info.length) {
                         $.each(booking_info, function (k, v) {
                             var item = {
+                                id: v.id,
                                 title: v.subject + "[" + v.user + "]",
                                 start: new Date(v.start_time),
                                 end: new Date(v.end_time),
@@ -252,7 +275,7 @@
                         // 把列表中的第一个作为页面的默认渲染
                         this.currentChooseMeetingRoom = result[0];
                         this.initRender();
-                        this.meetingRoomList = result
+                        this.meetingRoomList = result;
                     })
                 },
                 //点击后重新渲染页面

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
-from rest_framework.generics import ListAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from datetime import datetime
 import pytz
@@ -21,7 +21,7 @@ class UserListView(ListAPIView):
     queryset = User.objects.exclude(username__in=['admin', 'oamanager'])
 
 
-class BookView(ListCreateAPIView):
+class BookView(ListCreateAPIView, DestroyAPIView):
     serializer_class = BookingInfoSerializer
 
     def get_queryset(self):
@@ -36,10 +36,26 @@ class BookView(ListCreateAPIView):
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        request_data = request.data
-        BookingInfo.objects.filter(meeting_room__name=request_data.get('meeting_room'), )
-        BookingInfo.objects.filter(meeting_room__name=request_data.get('meeting_room'))
+        # TODO 预定的时候会出现覆盖的情况，目前没想好怎么处理
         return self.create(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        request_data = request.data
+        id = request_data.get('id', None)
+        book_user = request_data.get('bookUser', None)
+        if id:
+            b = BookingInfo.objects.get(id=id)
+            if b.user != book_user:
+                return Response({
+                    'message': '您无权删除他人的预定',
+                    'status': 900
+                })
+            else:
+                b.delete()
+                return Response({
+                    'message': '取消预定成功',
+                    'status': status.HTTP_204_NO_CONTENT
+                })
 
 
 class BookCollectionView(APIView):

@@ -10,16 +10,18 @@
                             <div class="space-4"></div>
                             <h3 class="blue" id="id-company-text">龙渊会议室预定系统</h3>
                         </div>
+                        <br>
                         <div class="space-6"></div>
                         <div class="position-relative">
                             <div id="login-box" class="login-box visible widget-box no-border">
-                                <div class="widget-body">
+                                <div class="widget-body bookmeeting-login">
                                     <div class="widget-main">
                                         <h5 class="header blue lighter bigger">
                                             <i class="ace-icon fa fa-coffee green"></i> 请输入您的登录信息
                                         </h5>
                                         <div class="space-6"></div>
-                                        <form>
+                                        <form action="{% url 'login' %}" method="post">
+                                            {% csrf_token %}
                                             <fieldset>
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -49,7 +51,6 @@
                                                         <span class="bigger-110"> 登录 </span>
                                                     </button>
                                                 </div>
-
                                                 <div class="space-4"></div>
                                             </fieldset>
                                         </form>
@@ -60,6 +61,13 @@
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.main-content -->
+            <div class="footer">
+                <div class="footer-inner">
+                    <div class="footer-content">
+                        ©2018 All Rights Reserved.版权所有.成都龙渊网络科技有限公司
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
