@@ -50,10 +50,10 @@ def send_invitation(receiver, book_user, subject, start_time, end_time, members,
     book_user_real_name = User.objects.get(username=book_user).first_name
     yy = '{}[{}]'.format(you_real_name, receiver)
     bb = '{}[{}]'.format(book_user_real_name, book_user)
-    mm = []
+    mm = [book_user]
     logger.debug(members)
     for m in members.split(';'):
-        if len(m) < 2: continue
+        if len(m) == 0: continue
         logger.debug('search user: [{}] on auth db'.format(m))
         u = User.objects.get(username=m)
         mm.append(u.first_name)
@@ -66,12 +66,13 @@ def send_invitation(receiver, book_user, subject, start_time, end_time, members,
                       members=mm,
                       location=location)
 
-    # def _mail(user, subject, content):
     user_mail = '{}@dragonest.com'.format(receiver)
     logger.debug(json.dumps({'receiver': user_mail, 'sender': settings.EMAIL_SENDER}))
     mail = BaseMail(subject, settings.EMAIL_SENDER, [user_mail], **{'message': html})
     send_result = mail.send_html()
     if send_result == 1:
-        return 'project month report, OK'
+        logger.debug('send invitation to {} success'.format(receiver))
+
     else:
-        return 'project month report, Failure'
+        logger.debug('send invitation to {} failure'.format(receiver))
+        return False

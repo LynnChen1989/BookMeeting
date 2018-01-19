@@ -227,6 +227,11 @@
                     this.$http.post(this.bookApiUrl, item).then(function (response) {
                         if (response.data.status === 901) {
                             msg.data('messageBox').danger('抱歉', '只允许预定本周内的会议室，请重新选择');
+                        } else if (response.data.status === 209) {
+                            msg.data('messageBox').warning('注意', '会议室预定成功，但会议邀请失败，请反馈此问题');
+                            setTimeout(function () {
+                                window.location.href = "{% url 'bookmeeting' %}"
+                            }, 2000);
                         }
                         else {
                             msg.data('messageBox').info('预定成功', '请注意查收邮件并准时参加会议');

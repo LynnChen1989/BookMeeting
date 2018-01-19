@@ -56,9 +56,9 @@ class BookView(ListCreateAPIView, DestroyAPIView):
         members = request_data.get('member')
 
         # 回滚操作
-        def __rollback(id):
-            d = BookingInfo.objects.get(id=id)
-            d.delete()
+        # def __rollback(id):
+        #     d = BookingInfo.objects.get(id=id)
+        #     d.delete()
 
         # invitation = request_data.get('invitation') 必须邀请
         if start_time < st or start_time > ed or end_time < st or end_time > ed:
@@ -73,7 +73,7 @@ class BookView(ListCreateAPIView, DestroyAPIView):
             from bookmeeting.api.mail import send_invitation
             logger.debug('request data: {}'.format(request_data))
             for you in members.split(';'):
-                if len(you) < 2: continue
+                if len(you) == 0: continue
                 logger.debug('send invitation info: {}'.format(
                     json.dumps({
                         'you': you, 'book_user': book_user, 'subject': subject, 'start_time': start_time,
@@ -84,10 +84,13 @@ class BookView(ListCreateAPIView, DestroyAPIView):
                     send_invitation(you, book_user, subject, start_time, end_time, members, location)
                 except Exception as e:
                     save_id = save.data.get('id')
-                    logger.debug('send invitation error, now will rollback book handle, error:{}'.format(e))
-                    logger.debug('rollback database id: {}'.format(save_id))
-                    __rollback(save_id)
-            return save
+                    logger.error('send invitation error, book success, error:{}'.format(e))
+                    logger.error('rollback database id: {}'.format(save_id))
+                    return Response({
+                        'message': '预定成功，邮件失败',
+                        'status': 209
+                    })
+        return save
 
     def delete(self, request, *args, **kwargs):
         request_data = request.data
