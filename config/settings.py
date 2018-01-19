@@ -155,3 +155,51 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# mail
+EMAIL_SENDER = os.environ.get('EMAIL_SENDER', 'ops@dragonest.com')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', False)
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.exmail.qq.com')
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'ops@dragonest.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'Apple123@(')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s]- %(message)s'}
+    },
+    'filters': {
+    },
+    'handlers': {
+        'book-meeting': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'book-meeting.log',  # 日志输出文件
+            'maxBytes': 1024 * 1024 * 5,  # 文件大小
+            'backupCount': 5,  # 备份份数
+            'formatter': 'standard',  # 使用哪种formatters日志格式
+            'encoding': 'utf8'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+            # 'encoding': 'utf8'
+        },
+
+    },
+    'loggers': {
+        'book-meeting': {
+            'handlers': ['console', 'book-meeting'],
+            'level': 'DEBUG',
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'propagate': False,
+            'level': 'INFO'
+        }
+    }
+}

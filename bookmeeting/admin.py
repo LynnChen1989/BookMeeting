@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-
+from django.conf import settings
 from bookmeeting.models import BookingInfo, MeetingRoom
 
 
@@ -25,6 +25,15 @@ class BookingInfoAdmin(admin.ModelAdmin):
     list_display = ('user', 'meeting_room', 'start_time', 'end_time',
                     'duration', 'subject', 'abstract', 'member', 'book_time', 'invitation')
     list_filter = ('user', 'meeting_room')
+    actions = ['send_mail']
+
+    def send_mail(self, request, queryset):
+        from bookmeeting.api.mail import BaseMail, send_invitation
+        send_invitation('chenlin002', 'chenlin002', '运维周例会', '2017-2-10 00:00:00', '2017-2-10 00:00:00', '陈林')
+        # b = BaseMail('测试', '测试', settings.EMAIL_SENDER , ['chenlin002@dragonest.com',])
+        # b.send_plaintext_mail()
+        # b.send_attach_mail()
+    send_mail.short_description = '发送邮件'
 
 
 class UserAdmin(admin.ModelAdmin):

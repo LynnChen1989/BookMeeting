@@ -1,15 +1,19 @@
+import json
+
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.generics import ListAPIView, ListCreateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from datetime import datetime
 import pytz
 from rest_framework.views import APIView
-
 from bookmeeting.api.public import week_range
 from .api_serializer import MeetingRoomSerializer, UserSerializer, BookingInfoSerializer
 from bookmeeting.models import MeetingRoom, BookingInfo
+import logging
+from django.db import transaction
+
+logger = logging.getLogger('book-meeting')
 
 
 class MeetRoomView(ListAPIView):
@@ -46,13 +50,44 @@ class BookView(ListCreateAPIView, DestroyAPIView):
         request_data = request.data
         start_time = request_data.get('start_time')
         end_time = request_data.get('end_time')
+        book_user = request_data.get('user')
+        location = request_data.get('meeting_room')
+        subject = request_data.get('subject')
+        members = request_data.get('member')
 
+        # 回滚操作
+        def __rollback(id):
+            d = BookingInfo.objects.get(id=id)
+            d.delete()
+
+        # invitation = request_data.get('invitation') 必须邀请
         if start_time < st or start_time > ed or end_time < st or end_time > ed:
             return Response({
                 'message': '只允许预定本周的会议室',
                 'status': 901
             })
-        return self.create(request, *args, **kwargs)
+
+        save = self.create(request, *args, **kwargs)
+        if save.status_code == 201:
+            logger.debug('meeting room book success, now send invitation to members.')
+            from bookmeeting.api.mail import send_invitation
+            logger.debug('request data: {}'.format(request_data))
+            for you in members.split(';'):
+                if len(you) < 2: continue
+                logger.debug('send invitation info: {}'.format(
+                    json.dumps({
+                        'you': you, 'book_user': book_user, 'subject': subject, 'start_time': start_time,
+                        'end_time': end_time,
+                        'member': members, 'meeting_room': location
+                    }, indent=4)))
+                try:
+                    send_invitation(you, book_user, subject, start_time, end_time, members, location)
+                except Exception as e:
+                    save_id = save.data.get('id')
+                    logger.debug('send invitation error, now will rollback book handle, error:{}'.format(e))
+                    logger.debug('rollback database id: {}'.format(save_id))
+                    __rollback(save_id)
+            return save
 
     def delete(self, request, *args, **kwargs):
         request_data = request.data

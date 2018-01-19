@@ -31,7 +31,7 @@ class BookingInfo(models.Model):
     abstract = models.TextField(verbose_name='会议大纲')
     book_time = models.DateTimeField(verbose_name='发起预定时间', auto_now=True)
     invitation = models.BooleanField(verbose_name='是否发送会议邀请', default=True)
-    member = models.TextField(verbose_name='会议成员', blank=True, null=True)
+    member = models.TextField(verbose_name='会议成员')
 
     class Meta:
         verbose_name = '会议室预定信息'
