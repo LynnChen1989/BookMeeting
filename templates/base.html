@@ -61,9 +61,9 @@
                         </a>
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"
                             style="width: 320px; left: 626px; right: auto; top: 149px;">
-                            <li><a href="/admin"><i class="ace-icon fa fa-cog"></i>后台管理</a></li>
+                            <li><a href="{% url 'admin:index' %}"><i class="ace-icon fa fa-cog"></i>后台管理</a></li>
                             <li class="divider"></li>
-                            <li><a href="#"><i class="ace-icon fa fa-power-off"></i>退出登录</a></li>
+                            <li><a href="{% url 'logout' %}"><i class="ace-icon fa fa-power-off"></i>退出登录</a></li>
                         </ul>
                     </li>
                 </ul>

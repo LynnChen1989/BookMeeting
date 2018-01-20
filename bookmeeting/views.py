@@ -1,8 +1,10 @@
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
+from django.contrib.auth.views import LoginView, LogoutView
+from django import forms
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from bookmeeting.models import MeetingRoom, BookingInfo
+from django.utils.translation import ugettext_lazy as _
 import random
 
 
@@ -37,6 +39,23 @@ class BookView(TemplateView):
     template_name = 'book.html'
 
 
+class LoginForm(AuthenticationForm):
+    username = UsernameField(
+        max_length=254,
+        widget=forms.TextInput(attrs={'autofocus': True, 'class': 'form-control'}),
+    )
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+    )
+
+
 class MeetingLoginView(LoginView):
     template_name = 'login.html'
-    form_class = AuthenticationForm
+    form_class = LoginForm
+
+
+class MeetingLogoutView(LogoutView):
+    template_name = 'login.html'
+    # pass

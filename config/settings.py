@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
     'rest_framework',
     'rest_framework_swagger',
     'bookmeeting',
@@ -157,12 +158,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # mail
-EMAIL_SENDER = os.environ.get('EMAIL_SENDER', 'ops@dragonest.com')
+EMAIL_SENDER = os.environ.get('EMAIL_SENDER', 'chenlin_youdao@126.com')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', False)
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.exmail.qq.com')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.126.com')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'ops@dragonest.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'Apple123@(')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'chenlin_youdao@126.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'chenlin<>?1989')
 
 LOGGING = {
     'version': 1,
@@ -203,3 +204,21 @@ LOGGING = {
         }
     }
 }
+
+LOGOUT_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = '/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+CRONJOBS = [
+    ('0 1 * * *', 'bookmeeting.cron.sync_oa_user'),
+    ('* * * * *', 'bookmeeting.cron.test')
+]

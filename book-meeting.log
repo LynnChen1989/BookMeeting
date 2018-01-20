@@ -1,0 +1,370 @@
+2018-01-19 17:25:30,938 [Thread-15:123145426239488] [book-meeting:63] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:25:30,940 [Thread-15:123145426239488] [book-meeting:65] [api_views:post] [DEBUG]- {'user': 'chenlin002', 'meeting_room': '神龙岛', 'start_time': '2018-01-20 12:00:00', 'end_time': '2018-01-20 13:30:00', 'subject': '测试', 'abstract': '测试', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:25:30,943 [Thread-15:123145426239488] [book-meeting:73] [api_views:post] [DEBUG]- send invitation info: {'you': '陈林(运维)[chenlin002]', 'book_user': '陈林(运维)[chenlin002]', 'subject': '测试', 'start_time': '2018-01-20 12:00:00', 'end_time': '2018-01-20 13:30:00', 'member': 'chenlin002;', 'meeting_room': '神龙岛'}
+2018-01-19 17:25:31,559 [Thread-15:123145426239488] [book-meeting:34] [mail:send_html] [ERROR]- send mail error: string index out of range
+2018-01-19 17:29:30,434 [Thread-13:123145518604288] [book-meeting:63] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:29:30,435 [Thread-13:123145518604288] [book-meeting:65] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '神龙岛', 'start_time': '2018-01-21 12:00:00', 'end_time': '2018-01-21 13:00:00', 'subject': 'ddd', 'abstract': 'ddd', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:29:30,439 [Thread-13:123145518604288] [book-meeting:74] [api_views:post] [DEBUG]- send invitation info: {'you': '陈林(运维)[chenlin002]', 'book_user': '陈林(运维)[chenlin002]', 'subject': 'ddd', 'start_time': '2018-01-21 12:00:00', 'end_time': '2018-01-21 13:00:00', 'member': 'chenlin002;', 'meeting_room': '神龙岛'}
+2018-01-19 17:29:30,980 [Thread-13:123145518604288] [book-meeting:34] [mail:send_html] [ERROR]- send mail error: string index out of range
+2018-01-19 17:37:40,041 [Thread-19:123145335242752] [book-meeting:65] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:37:40,045 [Thread-19:123145335242752] [book-meeting:67] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '卧龙峡', 'start_time': '2018-01-20 09:30:00', 'end_time': '2018-01-20 10:30:00', 'subject': '测试', 'abstract': '测试会议', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:37:40,045 [Thread-19:123145335242752] [book-meeting:74] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "\u6d4b\u8bd5",
+    "start_time": "2018-01-20 09:30:00",
+    "end_time": "2018-01-20 10:30:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u5367\u9f99\u5ce1"
+}
+2018-01-19 17:38:31,566 [Thread-6:123145411211264] [book-meeting:65] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:38:31,568 [Thread-6:123145411211264] [book-meeting:67] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-19 15:30:00', 'end_time': '2018-01-19 16:00:00', 'subject': 'ddd', 'abstract': 'ddd', 'duration': 30, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:38:31,568 [Thread-6:123145411211264] [book-meeting:74] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-19 15:30:00",
+    "end_time": "2018-01-19 16:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:39:32,177 [Thread-13:123145318842368] [book-meeting:65] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:39:32,181 [Thread-13:123145318842368] [book-meeting:67] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '卧龙峡', 'start_time': '2018-01-20 14:00:00', 'end_time': '2018-01-20 15:00:00', 'subject': '快快快', 'abstract': '快快快', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:39:32,182 [Thread-13:123145318842368] [book-meeting:74] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "\u5feb\u5feb\u5feb",
+    "start_time": "2018-01-20 14:00:00",
+    "end_time": "2018-01-20 15:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u5367\u9f99\u5ce1"
+}
+2018-01-19 17:39:32,193 [Thread-13:123145318842368] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 17:42:07,086 [Thread-15:123145321156608] [book-meeting:65] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:42:07,090 [Thread-15:123145321156608] [book-meeting:67] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '卧龙峡', 'start_time': '2018-01-19 12:30:00', 'end_time': '2018-01-19 14:00:00', 'subject': 'ddd', 'abstract': 'dddd', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:42:07,090 [Thread-15:123145321156608] [book-meeting:74] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-19 12:30:00",
+    "end_time": "2018-01-19 14:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u5367\u9f99\u5ce1"
+}
+2018-01-19 17:42:07,104 [Thread-15:123145321156608] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 17:42:07,107 [Thread-15:123145321156608] [book-meeting:78] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle
+2018-01-19 17:42:07,107 [Thread-15:123145321156608] [book-meeting:74] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-19 12:30:00",
+    "end_time": "2018-01-19 14:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u5367\u9f99\u5ce1"
+}
+2018-01-19 17:42:07,113 [Thread-15:123145321156608] [book-meeting:78] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle
+2018-01-19 17:45:59,987 [Thread-14:123145481138176] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:45:59,989 [Thread-14:123145481138176] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-20 10:00:00', 'end_time': '2018-01-20 11:00:00', 'subject': 'ddd', 'abstract': 'ddd', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:45:59,990 [Thread-14:123145481138176] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-20 10:00:00",
+    "end_time": "2018-01-20 11:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:46:00,001 [Thread-14:123145481138176] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 17:46:00,004 [Thread-14:123145481138176] [book-meeting:85] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 17:46:44,373 [Thread-13:123145534889984] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:46:44,375 [Thread-13:123145534889984] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 12:00:00', 'end_time': '2018-01-21 13:00:00', 'subject': 'ddd', 'abstract': 'dd', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:46:44,376 [Thread-13:123145534889984] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-21 12:00:00",
+    "end_time": "2018-01-21 13:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:46:44,387 [Thread-13:123145534889984] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 17:46:44,390 [Thread-13:123145534889984] [book-meeting:85] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 17:46:44,398 [Thread-13:123145534889984] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-21 12:00:00",
+    "end_time": "2018-01-21 13:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:46:44,404 [Thread-13:123145534889984] [book-meeting:85] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 17:49:02,651 [Thread-8:123145577701376] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:49:02,652 [Thread-8:123145577701376] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 12:30:00', 'end_time': '2018-01-21 13:30:00', 'subject': 'ddd', 'abstract': 'ddd', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:49:02,652 [Thread-8:123145577701376] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-21 12:30:00",
+    "end_time": "2018-01-21 13:30:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:49:02,664 [Thread-8:123145577701376] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 17:49:02,667 [Thread-8:123145577701376] [book-meeting:85] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 17:49:02,667 [Thread-8:123145577701376] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-21 12:30:00",
+    "end_time": "2018-01-21 13:30:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:49:02,673 [Thread-8:123145577701376] [book-meeting:85] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 17:50:00,284 [Thread-1:123145579184128] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:50:00,285 [Thread-1:123145579184128] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 14:30:00', 'end_time': '2018-01-21 15:30:00', 'subject': 'dd', 'abstract': 'dd', 'duration': 60, 'invitation': True, 'member': 'huangxue;'}
+2018-01-19 17:50:00,285 [Thread-1:123145579184128] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "huangxue",
+    "book_user": "chenlin002",
+    "subject": "dd",
+    "start_time": "2018-01-21 14:30:00",
+    "end_time": "2018-01-21 15:30:00",
+    "member": "huangxue;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:50:00,285 [Thread-1:123145579184128] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "dd",
+    "start_time": "2018-01-21 14:30:00",
+    "end_time": "2018-01-21 15:30:00",
+    "member": "huangxue;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:50:00,285 [Thread-1:123145579184128] [book-meeting:87] [api_views:post] [DEBUG]- {'id': 51, 'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21T14:30:00+08:00', 'end_time': '2018-01-21T15:30:00+08:00', 'duration': 60.0, 'subject': 'dd', 'abstract': 'dd', 'book_time': '2018-01-19T17:50:00.280881+08:00', 'invitation': True, 'member': 'huangxue;'}
+2018-01-19 17:51:22,184 [Thread-10:123145540616192] [book-meeting:71] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:51:22,187 [Thread-10:123145540616192] [book-meeting:73] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 10:00:00', 'end_time': '2018-01-21 11:00:00', 'subject': 'ddd', 'abstract': 'ddd', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:51:22,187 [Thread-10:123145540616192] [book-meeting:80] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-21 10:00:00",
+    "end_time": "2018-01-21 11:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:51:22,198 [Thread-10:123145540616192] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 17:51:22,200 [Thread-10:123145540616192] [book-meeting:84] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 17:51:22,205 [Thread-10:123145540616192] [book-meeting:80] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-21 10:00:00",
+    "end_time": "2018-01-21 11:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:51:22,210 [Thread-10:123145540616192] [book-meeting:84] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 17:56:15,007 [Thread-8:123145573064704] [book-meeting:73] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:56:15,009 [Thread-8:123145573064704] [book-meeting:75] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-20 11:00:00', 'end_time': '2018-01-20 12:00:00', 'subject': 'dd', 'abstract': 'dd', 'duration': 60, 'invitation': True, 'member': 'lilongfei;'}
+2018-01-19 17:56:15,009 [Thread-8:123145573064704] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "lilongfei",
+    "book_user": "chenlin002",
+    "subject": "dd",
+    "start_time": "2018-01-20 11:00:00",
+    "end_time": "2018-01-20 12:00:00",
+    "member": "lilongfei;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:56:15,009 [Thread-8:123145573064704] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "dd",
+    "start_time": "2018-01-20 11:00:00",
+    "end_time": "2018-01-20 12:00:00",
+    "member": "lilongfei;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:56:28,508 [Thread-20:123145573064704] [book-meeting:73] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:56:28,509 [Thread-20:123145573064704] [book-meeting:75] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-20 11:00:00', 'end_time': '2018-01-20 12:30:00', 'subject': 'aaaa', 'abstract': 'aaaa', 'duration': 90, 'invitation': True, 'member': 'yinxueyuan;'}
+2018-01-19 17:56:28,509 [Thread-20:123145573064704] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "yinxueyuan",
+    "book_user": "chenlin002",
+    "subject": "aaaa",
+    "start_time": "2018-01-20 11:00:00",
+    "end_time": "2018-01-20 12:30:00",
+    "member": "yinxueyuan;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:56:28,509 [Thread-20:123145573064704] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "aaaa",
+    "start_time": "2018-01-20 11:00:00",
+    "end_time": "2018-01-20 12:30:00",
+    "member": "yinxueyuan;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:57:33,438 [Thread-17:123145401147392] [book-meeting:73] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:57:33,439 [Thread-17:123145401147392] [book-meeting:75] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 11:30:00', 'end_time': '2018-01-21 13:00:00', 'subject': 'ddd', 'abstract': 'dd', 'duration': 90, 'invitation': True, 'member': 'yinxueyuan;'}
+2018-01-19 17:57:33,439 [Thread-17:123145401147392] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "yinxueyuan",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-21 11:30:00",
+    "end_time": "2018-01-21 13:00:00",
+    "member": "yinxueyuan;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:57:33,439 [Thread-17:123145401147392] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "ddd",
+    "start_time": "2018-01-21 11:30:00",
+    "end_time": "2018-01-21 13:00:00",
+    "member": "yinxueyuan;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:59:28,598 [Thread-8:123145484378112] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 17:59:28,600 [Thread-8:123145484378112] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 11:30:00', 'end_time': '2018-01-21 12:30:00', 'subject': 'dadasd', 'abstract': 'adasdasda', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 17:59:28,600 [Thread-8:123145484378112] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "dadasd",
+    "start_time": "2018-01-21 11:30:00",
+    "end_time": "2018-01-21 12:30:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:59:28,610 [Thread-8:123145484378112] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 17:59:28,613 [Thread-8:123145484378112] [book-meeting:86] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 17:59:28,613 [Thread-8:123145484378112] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "dadasd",
+    "start_time": "2018-01-21 11:30:00",
+    "end_time": "2018-01-21 12:30:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 17:59:28,619 [Thread-8:123145484378112] [book-meeting:86] [api_views:post] [DEBUG]- send invitation error, now will rollback book handle, error:User matching query does not exist.
+2018-01-19 18:00:46,600 [Thread-4:123145500983296] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 18:00:46,602 [Thread-4:123145500983296] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 15:30:00', 'end_time': '2018-01-21 17:00:00', 'subject': 'ddda', 'abstract': 'ddadsa', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 18:00:46,602 [Thread-4:123145500983296] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddda",
+    "start_time": "2018-01-21 15:30:00",
+    "end_time": "2018-01-21 17:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 18:00:46,613 [Thread-4:123145500983296] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 18:01:27,849 [Thread-1:123145540214784] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 18:01:27,852 [Thread-1:123145540214784] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 15:30:00', 'end_time': '2018-01-21 17:00:00', 'subject': 'ddda', 'abstract': 'ddadsa', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 18:01:27,852 [Thread-1:123145540214784] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddda",
+    "start_time": "2018-01-21 15:30:00",
+    "end_time": "2018-01-21 17:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 18:01:27,862 [Thread-1:123145540214784] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 18:01:27,862 [Thread-1:123145540214784] [book-meeting:55] [mail:send_invitation] [DEBUG]- chenlin002
+2018-01-19 18:01:27,864 [Thread-1:123145540214784] [book-meeting:55] [mail:send_invitation] [DEBUG]- 
+2018-01-19 18:03:19,151 [Thread-1:123145570275328] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 18:03:19,154 [Thread-1:123145570275328] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 15:30:00', 'end_time': '2018-01-21 17:00:00', 'subject': 'ddda', 'abstract': 'ddadsa', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 18:03:19,154 [Thread-1:123145570275328] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddda",
+    "start_time": "2018-01-21 15:30:00",
+    "end_time": "2018-01-21 17:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 18:03:19,164 [Thread-1:123145570275328] [book-meeting:53] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 18:03:19,166 [Thread-1:123145570275328] [book-meeting:69] [mail:send_invitation] [DEBUG]- {"receiver": "chenlin002@dragonest.com", "sender": "ops@dragonest.com"}
+2018-01-19 18:03:20,780 [Thread-1:123145570275328] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "ddda",
+    "start_time": "2018-01-21 15:30:00",
+    "end_time": "2018-01-21 17:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 18:04:18,405 [Thread-1:123145415114752] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 18:04:18,408 [Thread-1:123145415114752] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 15:30:00', 'end_time': '2018-01-21 17:00:00', 'subject': 'ddda', 'abstract': 'ddadsa', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 18:04:18,408 [Thread-1:123145415114752] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ddda",
+    "start_time": "2018-01-21 15:30:00",
+    "end_time": "2018-01-21 17:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 18:04:18,416 [Thread-1:123145415114752] [book-meeting:48] [mail:send_invitation] [DEBUG]- args:chenlin002
+2018-01-19 18:04:18,419 [Thread-1:123145415114752] [book-meeting:54] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 18:04:18,421 [Thread-1:123145415114752] [book-meeting:70] [mail:send_invitation] [DEBUG]- {"receiver": "chenlin002@dragonest.com", "sender": "ops@dragonest.com"}
+2018-01-19 18:04:19,898 [Thread-1:123145415114752] [book-meeting:81] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "",
+    "book_user": "chenlin002",
+    "subject": "ddda",
+    "start_time": "2018-01-21 15:30:00",
+    "end_time": "2018-01-21 17:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 18:04:19,904 [Thread-1:123145415114752] [book-meeting:48] [mail:send_invitation] [DEBUG]- args:
+2018-01-19 18:06:51,734 [Thread-1:123145350008832] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 18:06:51,735 [Thread-1:123145350008832] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-21 15:30:00', 'end_time': '2018-01-21 17:00:00', 'subject': '运维周例会', 'abstract': '一周工作总结', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 18:06:51,736 [Thread-1:123145350008832] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "\u8fd0\u7ef4\u5468\u4f8b\u4f1a",
+    "start_time": "2018-01-21 15:30:00",
+    "end_time": "2018-01-21 17:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-19 18:06:51,743 [Thread-1:123145350008832] [book-meeting:48] [mail:send_invitation] [DEBUG]- args:chenlin002
+2018-01-19 18:06:51,747 [Thread-1:123145350008832] [book-meeting:54] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 18:06:51,749 [Thread-1:123145350008832] [book-meeting:70] [mail:send_invitation] [DEBUG]- {"receiver": "chenlin002@dragonest.com", "sender": "ops@dragonest.com"}
+2018-01-19 18:58:02,426 [Thread-12:123145415630848] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 18:58:02,430 [Thread-12:123145415630848] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '神龙岛', 'start_time': '2018-01-21 11:30:00', 'end_time': '2018-01-21 13:00:00', 'subject': 'ceshi ', 'abstract': 'ceshi ', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 18:58:02,430 [Thread-12:123145415630848] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "ceshi ",
+    "start_time": "2018-01-21 11:30:00",
+    "end_time": "2018-01-21 13:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u795e\u9f99\u5c9b"
+}
+2018-01-19 18:58:02,438 [Thread-12:123145415630848] [book-meeting:48] [mail:send_invitation] [DEBUG]- args:chenlin002
+2018-01-19 18:58:02,442 [Thread-12:123145415630848] [book-meeting:54] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 18:58:02,442 [Thread-12:123145415630848] [book-meeting:57] [mail:send_invitation] [DEBUG]- search user: [chenlin002] on auth db
+2018-01-19 18:58:02,443 [Thread-12:123145415630848] [book-meeting:57] [mail:send_invitation] [DEBUG]- search user: [] on auth db
+2018-01-19 18:58:02,445 [Thread-12:123145415630848] [book-meeting:87] [api_views:post] [DEBUG]- send invitation error, book success, error:User matching query does not exist.
+2018-01-19 18:58:02,445 [Thread-12:123145415630848] [book-meeting:88] [api_views:post] [DEBUG]- rollback database id: 62
+2018-01-19 19:02:56,056 [Thread-14:123145437745152] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-19 19:02:56,059 [Thread-14:123145437745152] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '神龙岛', 'start_time': '2018-01-16 12:30:00', 'end_time': '2018-01-16 14:00:00', 'subject': '会议', 'abstract': '会议', 'duration': 90, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-19 19:02:56,059 [Thread-14:123145437745152] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "\u4f1a\u8bae",
+    "start_time": "2018-01-16 12:30:00",
+    "end_time": "2018-01-16 14:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u795e\u9f99\u5c9b"
+}
+2018-01-19 19:02:56,068 [Thread-14:123145437745152] [book-meeting:48] [mail:send_invitation] [DEBUG]- args:chenlin002
+2018-01-19 19:02:56,071 [Thread-14:123145437745152] [book-meeting:54] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-19 19:02:56,071 [Thread-14:123145437745152] [book-meeting:57] [mail:send_invitation] [DEBUG]- search user: [chenlin002] on auth db
+2018-01-19 19:02:56,073 [Thread-14:123145437745152] [book-meeting:70] [mail:send_invitation] [DEBUG]- {"receiver": "chenlin002@dragonest.com", "sender": "ops@dragonest.com"}
+2018-01-19 19:02:57,675 [Thread-14:123145437745152] [book-meeting:74] [mail:send_invitation] [DEBUG]- send invitation to chenlin002 success

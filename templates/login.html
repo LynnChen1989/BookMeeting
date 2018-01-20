@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block main-content %}
-    <div class="main-container">
+    <div class="main-container" id="login-page">
         <div class="main-content">
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
@@ -20,32 +20,37 @@
                                             <i class="ace-icon fa fa-coffee green"></i> 请输入您的登录信息
                                         </h5>
                                         <div class="space-6"></div>
+
+
                                         <form action="{% url 'login' %}" method="post">
                                             {% csrf_token %}
                                             <fieldset>
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control"
-                                                                   placeholder="Username">
+                                                            {{ form.username }}
+{#															<input type="text" class="form-control" placeholder="Username" value="{{ form.username }}">#}
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                                 </label>
 
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control"
-                                                                   placeholder="Password">
+                                                            {{ form.password }}
+{#															<input type="password" class="form-control" placeholder="Password" value="{{ form.password }}">#}
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                                 </label>
 
                                                 <div class="space"></div>
                                                 <div class="clearfix">
+                                                    {% if form.errors %}
+                                                        <p class="red">用户名或密码错误，请重试</p>
+                                                    {% endif %}
                                                     <label class="inline">
-                                                        <input type="checkbox" class="ace">
+                                                        <input type="checkbox" class="ace" checked>
                                                         <span class="lbl"> 记住我 </span>
                                                     </label>
-                                                    <button type="button"
+                                                    <button type="submit"
                                                             class="width-35 pull-right btn btn-sm btn-primary">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110"> 登录 </span>
@@ -70,4 +75,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block external_script %}
 {% endblock %}

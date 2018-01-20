@@ -25,30 +25,21 @@ class BookingInfoAdmin(admin.ModelAdmin):
     list_display = ('user', 'meeting_room', 'start_time', 'end_time',
                     'duration', 'subject', 'abstract', 'member', 'book_time', 'invitation')
     list_filter = ('user', 'meeting_room')
-    actions = ['send_mail']
-
-    def send_mail(self, request, queryset):
-        from bookmeeting.api.mail import BaseMail, send_invitation
-        send_invitation('chenlin002', 'chenlin002', '运维周例会', '2017-2-10 00:00:00', '2017-2-10 00:00:00', '陈林')
-        # b = BaseMail('测试', '测试', settings.EMAIL_SENDER , ['chenlin002@dragonest.com',])
-        # b.send_plaintext_mail()
-        # b.send_attach_mail()
-    send_mail.short_description = '发送邮件'
 
 
-class UserAdmin(admin.ModelAdmin):
-    list_per_page = 50
-    list_display = ('username', 'first_name', 'email', 'is_active', 'is_staff', 'is_superuser')
-    list_filter = ('is_active', 'username')
-    search_fields = ('username',)
-    actions = ['sync_user_from_oa']
-
-    def sync_user_from_oa(self, request, queryset):
-        from .logic import sync_user
-        sync_user()
-
-    sync_user_from_oa.short_description = '从OA系统同步用户'
-
-
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+# class UserAdmin(admin.ModelAdmin):
+#     list_per_page = 50
+#     list_display = ('username', 'first_name', 'email', 'is_active', 'is_staff', 'is_superuser')
+#     list_filter = ('is_active', 'username')
+#     search_fields = ('username',)
+#     actions = ['sync_user_from_oa']
+#
+#     def sync_user_from_oa(self, request, queryset):
+#         from .logic import sync_user
+#         sync_user()
+#
+#     sync_user_from_oa.short_description = '从OA系统同步用户'
+#
+#
+# admin.site.unregister(User)
+# admin.site.register(User, UserAdmin)

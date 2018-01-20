@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.urls import path, include
-from bookmeeting.views import BookMeetingView, BookView, MeetingLoginView
+from bookmeeting.views import BookMeetingView, BookView, MeetingLoginView, MeetingLogoutView
 from django.conf import settings
 from rest_framework_swagger.views import get_swagger_view
 
@@ -27,7 +27,7 @@ admin.site.site_header = "会议室预定系统后台管理"
 admin.site.site_title = "会议室预定系统后台管理"
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
+                  path('admin/', admin.site.urls,),
                   url(r'^api-docs/$', get_swagger_view(title='会议室预定系统API'))
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
@@ -36,6 +36,7 @@ urlpatterns += [
     url(r'^$', login_required(BookMeetingView.as_view(), login_url='login'), name='bookmeeting'),
     url(r'^book/', login_required(BookView.as_view(), login_url='login'), name='book'),
     url(r'^login/', MeetingLoginView.as_view(), name='login'),
+    url(r'^logout/', MeetingLogoutView.as_view(), name='logout'),
 ]
 
 # for rest_framework
