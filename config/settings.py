@@ -160,7 +160,7 @@ MEDIA_URL = '/media/'
 # mail
 EMAIL_SENDER = os.environ.get('EMAIL_SENDER', 'chenlin_youdao@126.com')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', False)
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.126.com')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.126.com.xxx')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'chenlin_youdao@126.com')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'chenlin<>?1989')

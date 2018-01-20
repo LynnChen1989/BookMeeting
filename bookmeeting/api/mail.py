@@ -72,7 +72,6 @@ def send_invitation(receiver, book_user, subject, start_time, end_time, members,
     send_result = mail.send_html()
     if send_result == 1:
         logger.debug('send invitation to {} success'.format(receiver))
-
     else:
         logger.debug('send invitation to {} failure'.format(receiver))
-        return False
+        raise Exception('send invitation to {} failure')

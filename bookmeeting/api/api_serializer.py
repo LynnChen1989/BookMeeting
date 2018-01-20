@@ -6,10 +6,14 @@ from rest_framework import serializers
 
 class BookingInfoSerializer(serializers.ModelSerializer):
     meeting_room = serializers.CharField(source='meeting_room.name')
+    real_name = serializers.SerializerMethodField()
+
+    def get_real_name(self, obj):
+        return User.objects.get(username=obj.user).first_name
 
     class Meta:
         model = BookingInfo
-        fields = ('id', 'user', 'meeting_room', 'start_time', 'end_time',
+        fields = ('id', 'user', 'real_name', 'meeting_room', 'start_time', 'end_time',
                   'duration', 'subject', 'abstract', 'book_time', 'invitation', 'member')
 
 

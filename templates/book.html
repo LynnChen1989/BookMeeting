@@ -99,6 +99,7 @@
 
 {% block external_script %}
     <script>
+        var currentUser = "{{ user.username }}";
         var msg = $("body").messageBox({
             modal: false,
             autoClose: 2,
@@ -211,7 +212,7 @@
                         });
                     }
                     var item = {
-                        'user': 'chenlin002',
+                        'user': currentUser,
                         'meeting_room': this.meetingRoomName,
                         'start_time': this.startTime.split(",", 1)[0],
                         'end_time': this.endTime.split(",", 1)[0],

@@ -115,6 +115,7 @@
 {% block external_script %}
     <script type="text/javascript">
         //消息盒子
+        var currentUser = "{{ user.username }}";
         var msg = $("body").messageBox({
             modal: false,
             autoClose: 2,
@@ -196,7 +197,7 @@
                         $.ajax({
                             url: "{% url 'bookmeeting:booking' %}",
                             type: "DELETE",
-                            data: {'id': eventId, 'bookUser': 'chenlin002'},
+                            data: {'id': eventId, 'bookUser': currentUser},
                             success: function (data, textStatus, xhr) {
                                 if (data.status === 900) {
                                     msg.data('messageBox').danger('抱歉', '您无权删除他人预定的会议室');
@@ -258,7 +259,7 @@
                         $.each(booking_info, function (k, v) {
                             var item = {
                                 id: v.id,
-                                title: v.subject + "[" + v.user + "]",
+                                title: v.subject + "[" + v.real_name + "]",
                                 start: new Date(v.start_time),
                                 end: new Date(v.end_time),
                                 allDay: false,
