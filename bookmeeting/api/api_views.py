@@ -61,7 +61,6 @@ class BookView(ListCreateAPIView, DestroyAPIView):
         #     d.delete()
 
         # invitation = request_data.get('invitation') 必须邀请
-        print(start_time, end_time, st,ed)
         if start_time < st or start_time > ed or end_time < st or end_time > ed:
             return Response({
                 'message': '只允许预定本周的会议室',
