@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" class="ace-main-stylesheet"/>
     <link rel="stylesheet" href="{% static 'assets/css/ace-skins.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'assets/css/ace-rtl.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-multiselect.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-duallistbox.min.css' %}"/>
+    {#    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-multiselect.min.css' %}"/>#}
+    {#    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-duallistbox.min.css' %}"/>#}
     <link rel="stylesheet" href="{% static 'assets/css/select2.min.css' %}"/>
     <script src="{% static 'assets/js/ace-extra.min.js' %}"></script>
 </head>
@@ -111,25 +111,18 @@
 <script src="{% static 'assets/js/jquery-2.1.4.min.js' %}"></script>
 <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'assets/js/jquery-ui.custom.min.js' %}"></script>
-<script src="{% static 'assets/js/jquery.ui.touch-punch.min.js' %}"></script>
 <script src="{% static 'assets/js/moment.min.js' %}"></script>
 <script src="{% static 'assets/js/fullcalendar.min.js' %}"></script>
 <script src="{% static 'assets/js/bootbox.js' %}"></script>
 <script src="{% static 'assets/js/ace-elements.min.js' %}"></script>
 <script src="{% static 'assets/js/ace.min.js' %}"></script>
 <script src="{% static 'assets/js/zh-cn.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap-datepicker.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap-datetimepicker.min.js' %}"></script>
-<script src="{% static 'assets/js/daterangepicker.min.js' %}"></script>
 <script src="{% static 'assets/js/vue.js' %}"></script>
 <script src="{% static 'assets/js/vue-resource.min.js' %}"></script>
 <script src="{% static 'assets/js/vue-filter.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap-multiselect.min.js' %}"></script>
-<script src="{% static 'assets/js/jquery.bootstrap-duallistbox.min.js' %}"></script>
 <script src="{% static 'assets/js/select2.min.js' %}"></script>
 <script src="{% static 'assets/js/jquery.messagebox.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js"></script>
-{#<script src="https://cdn.bootcss.com/vue/1.0.28/vue.js"></script>#}
+<script src="{% static 'assets/js/js.cookie.js' %}"></script>
 <script>
     var $dOut = $('#date'),
         $hOut = $('#hours'),

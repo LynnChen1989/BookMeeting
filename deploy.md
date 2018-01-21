@@ -1,6 +1,8 @@
 # 部署说明
 
 ## 环境变量
+    # 表明生产环境
+    PROD = 1
     # 数据库环境变量
     DATABASE_NAME = "db_bootmeeting"
     DATABASE_USER = "DATABASE_USER"
