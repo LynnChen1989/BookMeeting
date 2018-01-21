@@ -1,0 +1,46 @@
+version: '3'
+services:
+  book-meeting:
+    image: meeting:0.1.3
+    environment:
+      DATABASE_HOST: snake_mysql
+      DATABASE_NAME: db_bootmeeting
+      DATABASE_USER: root
+      DATABASE_PORT: 3306
+      DATABASE_PASSWORD: root
+      EMAIL_SENDER: ops@dragonest.com
+      EMAIL_USE_TLS: 'False'
+      EMAIL_HOST: smtp.exmail.qq.com
+      EMAIL_PORT: '25'
+      EMAIL_HOST_USER: ops@dragonest.com
+      EMAIL_HOST_PASSWORD: Apple123@(
+      PRODUCTION: '1'
+      OA_DB_HOST: 106.14.180.170
+      OA_DB_USER: rms
+      OA_DB_PORT: '3306'
+      OA_DB_PASSWORD: rms@dragonest.com
+      OA_DB_NAME: oa
+    stdin_open: true
+#    volumes:
+#      - /Users/snake/DockerDataVolume/book-meeting:/www/media
+    tty: true
+    links:
+      - snake_mysql:snake_mysql
+    ports:
+      - 2018:80/tcp
+    command:
+      - nginx
+    depends_on:
+      - snake_mysql
+
+  snake_mysql:
+    image: mysql:5.7
+    volumes:
+      - /Users/snake/DockerDataVolume/book-meeting-db/data:/var/lib/mysql
+      - /Users/snake/DockerDataVolume/book-meeting-db/conf.d:/etc/mysql/conf.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_bootmeeting
+      MYSQL_USER: meeting
+      MYSQL_PASSWORD: meeting

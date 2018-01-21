@@ -12,12 +12,13 @@ def week_range(date):
     # dow is Mon = 1, Sat = 6, Sun = 7
     year, week, dow = date.isocalendar()
     # Find the first day of the week.
-    if dow == 7:
+    if dow == 1:
+        # 从周一开始
         # Since we want to start with Sunday, let's test for that condition.
         start_date = date
     else:
         # Otherwise, subtract `dow` number days to get the first day
-        start_date = date - timedelta(dow - 1)
+        start_date = date - timedelta(dow)
 
     # Now, add 6 for the last day of the week (i.e., count up to Saturday)
     end_date = start_date + timedelta(6)
@@ -28,4 +29,5 @@ def week_range(date):
 if __name__ == '__main__':
     today = datetime.today()
     wek = week_range(today)
-    wek[0].strftime('%Y-%m-%d 00:00:00')
+    print(wek)
+    # wek[0].strftime('%Y-%m-%d 00:00:00')
