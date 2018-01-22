@@ -1,0 +1,35 @@
+image: docker:latest
+stages:
+  - build
+ # - deploy
+
+variables:
+  REGISTRY: registry.cn-shenzhen.aliyuncs.com
+  REGISTRY_USER: ${REGISTRY_USER}
+  REGISTRY_PASSWORD: ${REGISTRY_PASSWORD}
+  NAMESPACE: ly_ops
+  VERSION: ${CI_COMMIT_TAG}
+
+build:
+  stage: build
+  services:
+    - docker:dind
+  befor_script:
+    - echo "docker registry user: ${REGISTRY_USER}"
+    - echo ${REGISTRY_PASSWORD} | docker login -u ${REGISTRY_USER} --password-stdin ${REGISTRY}
+  script:
+    - docker build -t ${REGISTRY}/${NAMESPACE}/bookmeeting:${VERSION} -f Dockerfile .
+    - docker push ${REGISTRY}/${NAMESPACE}/bookmeeting:${VERSION}
+  tags:
+    - rancher
+    - dev
+  only:
+    - tags
+  except:
+    - master
+
+#deploy:
+#  stage: deploy
+#  services:
+#    - docker:dind
+
