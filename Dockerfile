@@ -1,4 +1,4 @@
-FROM meeting-base:0.1.1
+FROM i.registry.dragonest.net/meeting-base:latest
 MAINTAINER chenlin002@dragonest.com
 ADD . /www
 WORKDIR /www
