@@ -55,15 +55,15 @@
 
 ### 登录
 
-<img src="https://raw.githubusercontent.com/LynnChen1989/BookMeeting/open/static/assets/images/333.jpg" width="400" height="300">
+<img src="https://raw.githubusercontent.com/LynnChen1989/BookMeeting/open/static/assets/images/333.jpg" width="350" height="300">
     
     
 ### 预定
     
-    
-![alt text](static/assets/images/111.jpg)
-![alt text](static/assets/images/222.jpg)
+<img src="https://raw.githubusercontent.com/LynnChen1989/BookMeeting/open/static/assets/images/111.jpg" width="800" height="600">
+<img src="https://raw.githubusercontent.com/LynnChen1989/BookMeeting/open/static/assets/images/222.jpg" width="800" height="600">
+
 
 ### 邮件通知
 
-![alt text](static/assets/images/444.jpg)
+<img src="https://raw.githubusercontent.com/LynnChen1989/BookMeeting/open/static/assets/images/444.jpg" width="600" height="400">
