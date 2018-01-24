@@ -55,7 +55,7 @@
 
 ### 登录
 
-![alt text](static/assets/images/333.jpg)
+<img src="https://raw.githubusercontent.com/LynnChen1989/BookMeeting/open/static/assets/images/333.jpg" width="400" height="300">
     
     
 ### 预定
