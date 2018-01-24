@@ -420,3 +420,22 @@
 2018-01-20 13:45:54,488 [Thread-43:123145404919808] [book-meeting:76] [mail:send_invitation] [DEBUG]- send invitation to chenlin002 failure
 2018-01-20 13:45:54,488 [Thread-43:123145404919808] [book-meeting:87] [api_views:post] [ERROR]- send invitation error, book success, error:send invitation to {} failure
 2018-01-20 13:45:54,488 [Thread-43:123145404919808] [book-meeting:88] [api_views:post] [ERROR]- rollback database id: 66
+2018-01-24 10:46:23,206 [Thread-39:123145566277632] [book-meeting:72] [api_views:post] [DEBUG]- meeting room book success, now send invitation to members.
+2018-01-24 10:46:23,207 [Thread-39:123145566277632] [book-meeting:74] [api_views:post] [DEBUG]- request data: {'user': 'chenlin002', 'meeting_room': '腾龙阁', 'start_time': '2018-01-25 11:00:00', 'end_time': '2018-01-25 12:00:00', 'subject': '项目组例会', 'abstract': '项目组例会', 'duration': 60, 'invitation': True, 'member': 'chenlin002;'}
+2018-01-24 10:46:23,208 [Thread-39:123145566277632] [book-meeting:82] [api_views:post] [DEBUG]- send invitation info: {
+    "you": "chenlin002",
+    "book_user": "chenlin002",
+    "subject": "\u9879\u76ee\u7ec4\u4f8b\u4f1a",
+    "start_time": "2018-01-25 11:00:00",
+    "end_time": "2018-01-25 12:00:00",
+    "member": "chenlin002;",
+    "meeting_room": "\u817e\u9f99\u9601"
+}
+2018-01-24 10:46:23,217 [Thread-39:123145566277632] [book-meeting:48] [mail:send_invitation] [DEBUG]- args:chenlin002
+2018-01-24 10:46:23,220 [Thread-39:123145566277632] [book-meeting:54] [mail:send_invitation] [DEBUG]- chenlin002;
+2018-01-24 10:46:23,220 [Thread-39:123145566277632] [book-meeting:57] [mail:send_invitation] [DEBUG]- search user: [chenlin002] on auth db
+2018-01-24 10:46:23,222 [Thread-39:123145566277632] [book-meeting:70] [mail:send_invitation] [DEBUG]- {"receiver": "chenlin002@dragonest.com", "sender": "chenlin_youdao@126.com"}
+2018-01-24 10:46:23,646 [Thread-39:123145566277632] [book-meeting:37] [mail:send_html] [ERROR]- send mail error: [Errno 8] nodename nor servname provided, or not known
+2018-01-24 10:46:23,647 [Thread-39:123145566277632] [book-meeting:76] [mail:send_invitation] [DEBUG]- send invitation to chenlin002 failure
+2018-01-24 10:46:23,647 [Thread-39:123145566277632] [book-meeting:87] [api_views:post] [ERROR]- send invitation error, book success, error:send invitation to {} failure
+2018-01-24 10:46:23,648 [Thread-39:123145566277632] [book-meeting:88] [api_views:post] [ERROR]- rollback database id: 67
