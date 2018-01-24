@@ -53,7 +53,17 @@
     
 ## 预览
 
-### 预定页面
+### 登录
 
-    ![alt text](/static/assets/images/444.jpg)
+![alt text](static/assets/images/333.jpg)
+    
+    
+### 预定
+    
+    
+![alt text](static/assets/images/111.jpg)
+![alt text](static/assets/images/222.jpg)
 
+### 邮件通知
+
+![alt text](static/assets/images/444.jpg)
