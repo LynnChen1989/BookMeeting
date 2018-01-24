@@ -55,7 +55,7 @@
 
 ### 登录
 
-![alt text](static/assets/images/333.jpg)
+![alt text](static/assets/images/333.jpg|width=100)
     
     
 ### 预定
