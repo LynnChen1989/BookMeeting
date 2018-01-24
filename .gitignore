@@ -2,3 +2,4 @@
 .idea
 media
 book-meeting.log
+__pycache__
