@@ -55,5 +55,5 @@
 
 ### 预定页面
 
-    ![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+    ![alt text](https://github.com/LynnChen1989/BookMeeting/blob/open/static/assets/images/444.jpg)
 
