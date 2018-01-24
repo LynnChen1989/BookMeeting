@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 
 logger = logging.getLogger('rms')
 
-OA_DB_HOST = os.environ.get('OA_DB_HOST', '106.14.180.170')
+OA_DB_HOST = os.environ.get('OA_DB_HOST', '')
 OA_DB_USER = os.environ.get('OA_DB_USER', 'rms')
 OA_DB_PORT = os.environ.get('OA_DB_PORT', 3306)
-OA_DB_PASSWORD = os.environ.get('OA_DB_PASSWORD', 'rms@dragonest.com')
+OA_DB_PASSWORD = os.environ.get('OA_DB_PASSWORD', '')
 OA_DB_NAME = os.environ.get('OA_DB_NAME', 'oa')
 
 
