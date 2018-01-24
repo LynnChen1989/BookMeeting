@@ -55,6 +55,6 @@
 
 ### 预定页面
 
-![alt text](static/assets/images/444.jpg =100x100)
+![alt text](static/assets/images/444.jpg){:height="50%" width="50%"}
 
 
