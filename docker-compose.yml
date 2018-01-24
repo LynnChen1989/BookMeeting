@@ -21,8 +21,8 @@ services:
       OA_DB_PASSWORD: rms@dragonest.com
       OA_DB_NAME: oa
     stdin_open: true
-#    volumes:
-#      - /Users/snake/DockerDataVolume/book-meeting:/www/media
+    volumes:
+      - /Users/snake/DockerDataVolume/book-meeting:/www/media
     tty: true
     links:
       - snake_mysql:snake_mysql
